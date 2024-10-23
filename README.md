@@ -27,7 +27,9 @@
   - [Working with Stadium Repos](#working-with-stadium-repos)
 
 ## Overview
-Using a *Repeater* control to display data allows for more flexibility, customisability and extensbility that a standard DataGrid. This module provides the functionality to sort and page through a DataSet assigned to a *Repeater*. 
+Using a *Repeater* control to display data allows for more flexibility, customisability and extensbility than a standard DataGrid. This module provides the functionality to sort and page through a DataSet assigned to a *Repeater*. 
+
+Examples are also provided on how to achieve a variety of other common DataGrid functions. 
 
 https://github.com/user-attachments/assets/c6d7890c-16b5-456d-a71e-f92b6a701da3
 
