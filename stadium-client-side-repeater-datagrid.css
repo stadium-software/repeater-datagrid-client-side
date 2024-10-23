@@ -62,7 +62,7 @@
         background-size: var(--dg-sorting-icon-size, var(--DATA-GRID-SORT-ARROW-ASCDESC-ICON-SIZE));
     }
 
-    .paging {
+    .paging-stack-layout {
         display: flex;
         align-items: center;
         padding: 4px 0;
