@@ -484,7 +484,7 @@ Create a script under the page called "Initialise" with the input Parameter:
    3. visible (optional): Add "false" to hide the column (default is true)
    4. sortable (optional): Add "false" to show the heading as an (unclickable) *Label* instead of a *Link* (default is true)
 
-**Example HeadersList Value**
+**Example ColumnsList Value**
 ```json
 [{
  "name": "ID",
@@ -521,7 +521,7 @@ Create a script under the page called "Initialise" with the input Parameter:
 }]
 ```
 
-5. Drag the "ClientSideRepeaterDataGrid" script into the "Initialise" script and provide the "ClientSideRepeaterDataGrid" input parameters
+5. Drag the "ClientSideRepeaterDataGrid" script into the "Initialise" script and provide the input parameters
    1. RepeaterControlName: The name of the *Repeater* control from the Stadium Designer properties
    2. Columns: The *List* of columns called "ColumnsList"
    3. ContainerClass: The unique class you assigned to the main container (e.g. client-side-datagrid)
