@@ -28,7 +28,7 @@
 ## Overview
 Using a *Repeater* control to display data allows for more flexibility, customisability and extensbility that a standard DataGrid. This module provides the functionality to sort and page through a DataSet assigned to a *Repeater*. 
 
-Video / screenshot
+https://github.com/user-attachments/assets/14c8a5fd-8574-4134-88c8-610e1fb7d650
 
 ### Example Application
 The repo includes the sample application shown in the video. 
