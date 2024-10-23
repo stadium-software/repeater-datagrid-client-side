@@ -52,7 +52,7 @@ Initial 1.0
 ## Global Scripts
 The module requires the script called ["ClientSideRepeaterDataGrid"](#ClientSideRepeaterDataGrid-script) below to set up the *Repeater* contol as a DataGrid. 
 
-In order to query the state of the *Repeater*, the second script called ["ClientSideRepeaterDataGridState"](#ClientSideRepeaterDataGridstate-script) is also needed. This is necessary if you, for example, want to return the *Repeater* to a specific state later. 
+In order to query the state of the *Repeater*, the second script called ["ClientSideRepeaterDataGridState"](#ClientSideRepeaterDataGridstate-script) is also needed. This is useful if you, for example, want to return the *Repeater* to a specific state later. 
 
 ### ClientSideRepeaterDataGrid Script
 1. Create a Global Script called "ClientSideRepeaterDataGrid"
@@ -464,11 +464,13 @@ A *Repeater* control will contain the data (rows) in the DataGrid
 ![](images/BindingControlsToRepeater.png)
 
 ## Page Scripts
-The page script is not strictly necessary, but wrapping the functionality ina script makes it easier to reuse and extend.
+The page script is not strictly necessary, but wrapping the functionality in a script makes it easier to reuse and extend.
 
 ### "Initialise" Page Script
 Create a script under the page called "Initialise" with the input Parameter:
 1. State
+
+![](images/InitialiseScript.png)
 
 ### "Initialise" Setup
 1. Drag the "State" type into the script
