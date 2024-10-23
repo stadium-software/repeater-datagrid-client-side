@@ -530,13 +530,11 @@ Create a script under the page called "Initialise" with the input Parameter:
    3. ContainerClass: The unique class you assigned to the main container (e.g. client-side-datagrid)
    4. Data: Select the query *Result* or assign the JSON array to display from the API call
    5. State: The "State" *Type* created in step 1 of the "Initialise" script
-   6. EditableGrid: Ignore this property for standard data display. It's a boolean that hides the paging controls and changes header *Links* controls into *Label* controls ([see Editable Datagrids](#editable-datagrids))
+   6. EditableGrid: Ignore this property for standard data display. It's a boolean that hides the paging controls and changes header *Links* controls into *Label* controls
 
 ![](images/ScriptInputParams.png)
 
 ## Page.Load Event Handler
-
-![](images/PageLoadEv.png)
 
 1. Drag a "State" *Type* into the event handler
 2. Open the *Object Editor* in the dropdown of the "State" *Values* property
@@ -550,6 +548,8 @@ Create a script under the page called "Initialise" with the input Parameter:
 
 4. Drag the "Initialise" script into the Page.Load event handler
    1. Assign the "State" type to the "State" input parameter
+
+![](images/Page.Load.png)
 
 ## CSS
 The CSS below is required for the correct functioning of the module. Some elements can be [customised](#customising-css) using a variables CSS file. 
