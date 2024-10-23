@@ -21,8 +21,8 @@
     - ["Initialise" Page Script](#initialise-page-script)
     - ["Initialise" Setup](#initialise-setup)
   - [Page.Load Event Handler](#pageload-event-handler)
-  - [CSS](#css)
-  - [Customising CSS](#customising-css)
+  - [CSS Files](#css-files)
+  - [Styling Customisations](#styling-customisations)
 - [Working with Stadium Repos](#working-with-stadium-repos)
 
 ## Overview
@@ -550,7 +550,7 @@ Create a script under the page called "Initialise" with the input Parameter:
 
 ![](images/Page.Load.png)
 
-## CSS
+## CSS Files
 The CSS below is required for the correct functioning of the module. Some elements can be [customised](#customising-css) using a variables CSS file. 
 
 1. Create a folder called "CSS" inside of your Embedded Files in your application
@@ -561,7 +561,7 @@ The CSS below is required for the correct functioning of the module. Some elemen
 <link rel="stylesheet" href="{EmbeddedFiles}/CSS/stadium-client-side-repeater-datagrid-variables.css">
 ``` 
 
-## Customising CSS
+## Styling Customisations
 1. Open the CSS file called [*stadium-client-side-repeater-datagrid-variables.css*](stadium-client-side-repeater-datagrid-variables.css) from this repo
 2. Adjust the variables in the *:root* element as you see fit
 3. Overwrite the file in the CSS folder of your application with the customised file
