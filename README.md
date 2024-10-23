@@ -40,13 +40,13 @@ Initial 1.0
 # Setup
 
 ## Database
-[Follow these instructions](database-setup.md) to set up th "FilterData" database. Then add a connector called "StadiumFilterData". 
+[Follow these instructions](database-setup.md) to set up the "FilterData" database. Then add a connector called "StadiumFilterData". 
 
 ## Application Setup
 1. Check the *Enable Style Sheet* checkbox in the application properties
 
 ## Global Scripts
-The module requires the script called ["RepeaterDataGrid"](#repeaterdatagrid-script) below. For some functions, the second script called "RepeaterDataGridState" is also nedded. 
+The module requires the script called ["RepeaterDataGrid"](#repeaterdatagrid-script) below. For some functions, the second script called ["RepeaterDataGridState"](#repeaterdatagridstate-script) is also nedded. 
 
 ### RepeaterDataGrid Script
 1. Create a Global Script called "RepeaterDataGrid"
