@@ -22,8 +22,7 @@
     - ["Initialise" Setup](#initialise-setup)
   - [Page.Load Event Handler](#pageload-event-handler)
   - [CSS](#css)
-    - [Customising CSS](#customising-css)
-    - [CSS Upgrading](#css-upgrading)
+  - [Customising CSS](#customising-css)
 - [Working with Stadium Repos](#working-with-stadium-repos)
 
 ## Overview
@@ -562,13 +561,10 @@ The CSS below is required for the correct functioning of the module. Some elemen
 <link rel="stylesheet" href="{EmbeddedFiles}/CSS/stadium-client-side-repeater-datagrid-variables.css">
 ``` 
 
-### Customising CSS
+## Customising CSS
 1. Open the CSS file called [*stadium-client-side-repeater-datagrid-variables.css*](stadium-client-side-repeater-datagrid-variables.css) from this repo
 2. Adjust the variables in the *:root* element as you see fit
 3. Overwrite the file in the CSS folder of your application with the customised file
-
-### CSS Upgrading
-To upgrade the CSS in this module, follow the [steps outlined in this repo](https://github.com/stadium-software/samples-upgrading)
 
 # Working with Stadium Repos
 Stadium Repos are not static. They change as additional features are added and bugs are fixed. Using the right method to work with Stadium Repos allows for upgrading them in a controlled manner. How to use and update application repos is described here 
