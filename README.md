@@ -541,8 +541,8 @@ Create a script under the page called "Initialise" with the input Parameter:
 3. Assign values to the properties
    1. pageSize: The number of items you want to show in each DataGrid page
    2. page: The initial page to show in the DataGrid
-   3. sortDirection: The initial sort direction (asc or desc)
-   4. sortField: The initial sort field of the dataset
+   3. sortDirection: The direction you want to sort the data in (asc or desc)
+   4. sortField: The field by which the data will be sorted
 
 ![](images/StateTypeObjectProps.png)
 
