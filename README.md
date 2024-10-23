@@ -6,10 +6,10 @@
   - [Database](#database)
   - [Application Setup](#application-setup)
   - [Global Scripts](#global-scripts)
-    - [RepeaterDataGrid Script](#repeaterdatagrid-script)
-    - [RepeaterDataGridState Script](#repeaterdatagridstate-script)
+    - [ClientSideRepeaterDataGrid Script](#clientsiderepeaterdatagrid-script)
+    - [ClientSideRepeaterDataGridState Script](#clientsiderepeaterdatagridstate-script)
   - [Types](#types)
-    - [Header](#header)
+    - [Column](#column)
     - [State](#state)
     - [DataSet](#dataset)
   - [Page](#page)
@@ -19,6 +19,7 @@
     - [Labels](#labels)
   - [Page Scripts](#page-scripts)
     - ["Initialise" Page Script](#initialise-page-script)
+    - ["Initialise" Setup](#initialise-setup)
   - [Page.Load Event Handler](#pageload-event-handler)
   - [CSS](#css)
     - [Customising CSS](#customising-css)
@@ -31,8 +32,9 @@ Using a *Repeater* control to display data allows for more flexibility, customis
 https://github.com/user-attachments/assets/c6d7890c-16b5-456d-a71e-f92b6a701da3
 
 ### Example Application
-The repo includes the sample application shown in the video. 
-[Base.sapz](Stadium6/Base.sapz?raw=true)
+The repo includes the sample application shown in the video:
+
+[Client-Side-Repeater-DataGrid.sapz](Stadium6/Client-Side-Repeater-DataGrid.sapz?raw=true)
 
 # Version
 Initial 1.0
@@ -46,12 +48,12 @@ Initial 1.0
 1. Check the *Enable Style Sheet* checkbox in the application properties
 
 ## Global Scripts
-The module requires the script called ["RepeaterDataGrid"](#repeaterdatagrid-script) below to set up the *Repeater* contol as a DataGrid. 
+The module requires the script called ["ClientSideRepeaterDataGrid"](#ClientSideRepeaterDataGrid-script) below to set up the *Repeater* contol as a DataGrid. 
 
-In order to query the state of the *Repeater*, the second script called ["RepeaterDataGridState"](#repeaterdatagridstate-script) is also needed. This is necessary if you, for example, want to return the *Repeater* to a specific state later. 
+In order to query the state of the *Repeater*, the second script called ["ClientSideRepeaterDataGridState"](#ClientSideRepeaterDataGridstate-script) is also needed. This is necessary if you, for example, want to return the *Repeater* to a specific state later. 
 
-### RepeaterDataGrid Script
-1. Create a Global Script called "RepeaterDataGrid"
+### ClientSideRepeaterDataGrid Script
+1. Create a Global Script called "ClientSideRepeaterDataGrid"
 2. Add the input parameters below to the Global Script
    1. Columns
    2. ContainerClass
@@ -354,8 +356,8 @@ function attachData(value) {
 }
 ```
 
-### RepeaterDataGridState Script
-1. Create a Global Script called "RepeaterDataGridState"
+### ClientSideRepeaterDataGridState Script
+1. Create a Global Script called "ClientSideRepeaterDataGridState"
 2. Add the input parameters below to the Global Script
    1. ContainerClass
 3. Add the *output* parameter below to the Global Script
@@ -389,12 +391,12 @@ return ret;
 
 ## Types
 Create three types
-1. Header
+1. Column
 2. State
 3. DataSet
 
-### Header
-This type is used to define the headers in the DataGrid
+### Column
+This type is used to define the columns in the DataGrid
 1. name (any)
 2. header (any)
 3. visible (any)
@@ -436,7 +438,7 @@ The page must contain a number of controls
 ### Container
 A *Container* is the wrapper for all DataGrid controls
 1. Drag a *Container* control to the page and give it a suitable name (e.g. DataGridContainer)
-3. Add a class of your choice to the control *Classes* property to uniquely identify the control in the application (e.g. server-side-datagrid)
+3. Add a class of your choice to the control *Classes* property to uniquely identify the control in the application (e.g. client-side-datagrid)
 
 ### Grid
 A *Grid* control will create the DataGrid rows and columns
@@ -465,6 +467,64 @@ The page script is not strictly necessary, but wrapping the functionality ina sc
 ### "Initialise" Page Script
 Create a script under the page called "Initialise" with the input Parameter:
 1. State
+
+### "Initialise" Setup
+1. Drag the "State" type into the script
+2. Assign the "State" input parameter to the value property
+3. Fetch your data by dragging your query or WebService operation into the script
+4. Drag a *List* into the script and assign the type "Column" to the *List*
+5. Add each control / column in your *Repeater* to the *List* by providing the following
+   1. name (required & unique): The column name (case sensitive)
+   2. header (optional): The header title shown on this column. A value is necessary for users to be able to sort by the column
+   3. visible (optional): Add "false" to hide the column (default is true)
+   4. sortable (optional): Add "false" to show the heading as an (unclickable) *Label* instead of a *Link* (default is true)
+
+**Example HeadersList Value**
+```json
+[{
+ "name": "ID",
+ "header": "ID"
+},{
+ "name": "FirstName",
+ "header": "First Name",
+ "sortable": false
+},{
+ "name": "LastName",
+ "header": "Last Name",
+ "visible": false
+},{
+ "name": "NoOfChildren",
+ "header": "Children"
+},{
+ "name": "NoOfPets",
+ "header": "Pets"
+},{
+ "name": "StartDate",
+ "header": "Start Date"
+},{
+ "name": "EndDate",
+ "header": "End Date"
+},{
+ "name": "Healthy",
+ "header": "Healthy"
+},{
+ "name": "Happy",
+ "header": "Happy"
+},{
+ "name": "Subscription",
+ "header": "Subscription"
+}]
+```
+
+5. Drag the "ClientSideRepeaterDataGrid" script into the "Initialise" script and provide the "ClientSideRepeaterDataGrid" input parameters
+   1. RepeaterControlName: The name of the *Repeater* control from the Stadium Designer properties
+   2. Columns: The *List* of columns called "ColumnsList"
+   3. ContainerClass: The unique class you assigned to the main container (e.g. client-side-datagrid)
+   4. Data: Select the query *Result* or assign the JSON array to display from the API call
+   5. State: The "State" *Type* created in step 1 of the "Initialise" script
+   6. EditableGrid: Ignore this property for standard data display. It's a boolean that hides the paging controls and changes header *Links* controls into *Label* controls ([see Editable Datagrids](#editable-datagrids))
+
+![](images/RepeaterControlName.png)
 
 ## Page.Load Event Handler
 
