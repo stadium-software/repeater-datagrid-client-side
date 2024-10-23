@@ -46,7 +46,9 @@ Initial 1.0
 1. Check the *Enable Style Sheet* checkbox in the application properties
 
 ## Global Scripts
-The module requires the script called ["RepeaterDataGrid"](#repeaterdatagrid-script) below. For some functions, the second script called ["RepeaterDataGridState"](#repeaterdatagridstate-script) is also nedded. 
+The module requires the script called ["RepeaterDataGrid"](#repeaterdatagrid-script) below to set up the *Repeater* contol as a DataGrid. 
+
+In order to query the state of the *Repeater*, the second script called ["RepeaterDataGridState"](#repeaterdatagridstate-script) is also needed. This is necessary if you, for example, want to return the *Repeater* to a specific state later. 
 
 ### RepeaterDataGrid Script
 1. Create a Global Script called "RepeaterDataGrid"
