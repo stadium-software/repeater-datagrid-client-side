@@ -470,9 +470,10 @@ The page script is not strictly necessary, but wrapping the functionality in a s
 Create a script under the page called "Initialise" with the input Parameter:
 1. State
 
+### "Initialise" Setup
+
 ![](images/InitialiseScript.png)
 
-### "Initialise" Setup
 1. Drag the "State" type into the script
 2. Assign the "State" input parameter to the value property
 3. Fetch your data by dragging your query or WebService operation into the script
