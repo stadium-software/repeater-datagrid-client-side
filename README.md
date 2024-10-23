@@ -523,13 +523,16 @@ Create a script under the page called "Initialise" with the input Parameter:
 
 5. Drag the "ClientSideRepeaterDataGrid" script into the "Initialise" script and provide the input parameters
    1. RepeaterControlName: The name of the *Repeater* control from the Stadium Designer properties
+
+![](images/RepeaterControlName.png)
+
    2. Columns: The *List* of columns called "ColumnsList"
    3. ContainerClass: The unique class you assigned to the main container (e.g. client-side-datagrid)
    4. Data: Select the query *Result* or assign the JSON array to display from the API call
    5. State: The "State" *Type* created in step 1 of the "Initialise" script
    6. EditableGrid: Ignore this property for standard data display. It's a boolean that hides the paging controls and changes header *Links* controls into *Label* controls ([see Editable Datagrids](#editable-datagrids))
 
-![](images/RepeaterControlName.png)
+![](images/ScriptInputParams.png)
 
 ## Page.Load Event Handler
 
