@@ -282,7 +282,6 @@ function sort(field, direction) {
         allHeaders[i].classList.remove("dg-asc-sorting", "dg-desc-sorting");
         if (allHeaders[i].querySelector("a") && allHeaders[i].querySelector("a").getAttribute("field").toLowerCase() == field.toLowerCase()) {
             allHeaders[i].classList.add("dg-" + direction + "-sorting");
-            break;
         }
     }
     sortDirection = direction;
