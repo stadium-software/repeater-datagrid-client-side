@@ -67,10 +67,10 @@ In order to query the state of the *Repeater*, the second script called ["Client
 ```javascript
 /* Stadium Script v1.0 https://github.com/stadium-software/repeater-datagrid-client-side */
 let scope = this;
-let data = ~.Parameters.Input.Data;
-let cols = ~.Parameters.Input.Columns;
+let data = ~.Parameters.Input.Data || [];
+let cols = ~.Parameters.Input.Columns || [];
 let editMode = ~.Parameters.Input.EditableGrid || false;
-let state = ~.Parameters.Input.State;
+let state = ~.Parameters.Input.State || {};
 let pageSize = parseInt(state.pageSize);
 let sortField = state.sortField || cols[0].name;
 let sortDirection = state.sortDirection || "";
