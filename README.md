@@ -276,33 +276,35 @@ function handleSort(e) {
     sort(colHead, dir);
 }
 function sort(field, direction) {
-    if (!["asc", "desc"].includes(direction.toLowerCase())) direction = "asc";
-    let allHeaders = container.querySelectorAll(".repeater-header .link-container");
-    for (let i = 0; i < allHeaders.length; i++) {
-        allHeaders[i].classList.remove("dg-asc-sorting", "dg-desc-sorting");
-        if (allHeaders[i].querySelector("a") && allHeaders[i].querySelector("a").getAttribute("field").toLowerCase() == field.toLowerCase()) {
-            allHeaders[i].classList.add("dg-" + direction + "-sorting");
+    if (data && data.length > 0) {
+        if (!["asc", "desc"].includes(direction.toLowerCase())) direction = "asc";
+        let allHeaders = container.querySelectorAll(".repeater-header .link-container");
+        for (let i = 0; i < allHeaders.length; i++) {
+            allHeaders[i].classList.remove("dg-asc-sorting", "dg-desc-sorting");
+            if (allHeaders[i].querySelector("a") && allHeaders[i].querySelector("a").getAttribute("field").toLowerCase() == field.toLowerCase()) {
+                allHeaders[i].classList.add("dg-" + direction + "-sorting");
+            }
         }
-    }
-    sortDirection = direction;
-    sortField = field;
-    if (typeof data[0][sortField] == "string" && direction == "asc") {
-        data.sort((a, b) => a[sortField].localeCompare(b[sortField]));
-    }
-    if (typeof data[0][sortField] == "string" && direction == "desc") {
-        data.sort((a, b) => b[sortField].localeCompare(a[sortField]));
-    }
-    if (typeof data[0][sortField] == "number" && direction == "asc") {
-        data.sort((a, b) => a[sortField] - b[sortField]);
-    }
-    if (typeof data[0][sortField] == "number" && direction == "desc") {
-        data.sort((a, b) => b[sortField] - a[sortField]);
-    }
-    if (typeof data[0][sortField] == "boolean" && direction == "asc") {
-        data.sort((a, b) => b[sortField] - a[sortField]);
-    }
-    if (typeof data[0][sortField] == "boolean" && direction == "desc") {
-        data.sort((a, b) => Number(a[sortField]) - Number(b[sortField]));
+        sortDirection = direction;
+        sortField = field;
+        if (typeof data[0][sortField] == "string" && direction == "asc") {
+            data.sort((a, b) => a[sortField].localeCompare(b[sortField]));
+        }
+        if (typeof data[0][sortField] == "string" && direction == "desc") {
+            data.sort((a, b) => b[sortField].localeCompare(a[sortField]));
+        }
+        if (typeof data[0][sortField] == "number" && direction == "asc") {
+            data.sort((a, b) => a[sortField] - b[sortField]);
+        }
+        if (typeof data[0][sortField] == "number" && direction == "desc") {
+            data.sort((a, b) => b[sortField] - a[sortField]);
+        }
+        if (typeof data[0][sortField] == "boolean" && direction == "asc") {
+            data.sort((a, b) => b[sortField] - a[sortField]);
+        }
+        if (typeof data[0][sortField] == "boolean" && direction == "desc") {
+            data.sort((a, b) => Number(a[sortField]) - Number(b[sortField]));
+        }
     }
     setRepeaterData(page, data);
 }
