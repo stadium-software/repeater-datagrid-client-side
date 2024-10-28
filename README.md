@@ -142,7 +142,6 @@ function writeCookie() {
         samesite: "strict",
         domain: window.location.hostname,
     };
-    console.log(contID);
     let updatedCookie = encodeURIComponent(contID) + "=" + encodeURIComponent(value);
     for (let optionKey in options) {
         updatedCookie += "; " + optionKey;
@@ -278,11 +277,12 @@ function handleSort(e) {
 }
 function sort(field, direction) {
     if (!["asc", "desc"].includes(direction.toLowerCase())) direction = "asc";
-    let allHeaders = container.querySelectorAll(".grid-item:not(.grid-repeater-item) .link-container");
+    let allHeaders = container.querySelectorAll(".repeater-header .link-container");
     for (let i = 0; i < allHeaders.length; i++) {
         allHeaders[i].classList.remove("dg-asc-sorting", "dg-desc-sorting");
         if (allHeaders[i].querySelector("a").getAttribute("field").toLowerCase() == field.toLowerCase()) {
             allHeaders[i].classList.add("dg-" + direction + "-sorting");
+            break;
         }
     }
     sortDirection = direction;
