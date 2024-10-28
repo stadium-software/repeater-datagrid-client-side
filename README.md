@@ -280,7 +280,7 @@ function sort(field, direction) {
     let allHeaders = container.querySelectorAll(".repeater-header .link-container");
     for (let i = 0; i < allHeaders.length; i++) {
         allHeaders[i].classList.remove("dg-asc-sorting", "dg-desc-sorting");
-        if (allHeaders[i].querySelector("a").getAttribute("field").toLowerCase() == field.toLowerCase()) {
+        if (allHeaders[i].querySelector("a") && allHeaders[i].querySelector("a").getAttribute("field").toLowerCase() == field.toLowerCase()) {
             allHeaders[i].classList.add("dg-" + direction + "-sorting");
             break;
         }
