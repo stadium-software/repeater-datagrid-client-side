@@ -160,7 +160,7 @@ function addHeaders(c) {
     for (let i = c.length-1; i > -1; i--) {
         let gItem = createTag("div", ["grid-item", "repeater-header"], []);
         let el = createTag("div"), inner;
-        if (c[i].header && c[i].hasOwnProperty('sortable') && c[i].sortable !== false && c[i].sortable !== "false" && !editMode) {
+        if (c[i].header && c[i]?.sortable !== false && c[i]?.sortable !== "false" && !editMode) {
             el = createTag("div", ["control-container", "link-container"]);
             inner = createTag("a", ["btn", "btn-lg", "btn-link"], [{name: "rel", value:"noopener noreferrer"}, {name: "field", value:c[i].name}], c[i].header);
             inner.addEventListener("click", handleSort);
@@ -170,7 +170,7 @@ function addHeaders(c) {
             inner = createTag("span", [], [], c[i].header);
             el.appendChild(inner);
         }
-        if (c[i].hasOwnProperty('visible') && c[i].visible == false || c[i].visible == 'false') el.classList.add("visually-hidden");
+        if (c[i]?.visible == false || c[i]?.visible == 'false') el.classList.add("visually-hidden");
         if (c[i].name == sortField && sortDirection.toLowerCase() == "asc") el.classList.add("dg-asc-sorting");
         if (c[i].name == sortField && sortDirection.toLowerCase() == "desc") el.classList.add("dg-desc-sorting");
         gItem.appendChild(el);
