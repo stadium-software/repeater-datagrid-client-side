@@ -38,7 +38,7 @@ The repo includes the sample application shown in the video:
 [Client-Side-Repeater-DataGrid.sapz](Stadium6/Client-Side-Repeater-DataGrid.sapz?raw=true)
 
 # Version
-Initial 1.0
+1.1 Added an optional callback parameter for a page script that can be called after the assignment of the data
 
 # Setup
 
@@ -65,12 +65,13 @@ In order to query the state of the *Repeater*, the second script called ["Client
 3. Drag a *JavaScript* action into the script
 4. Add the Javascript below into the JavaScript code property
 ```javascript
-/* Stadium Script v1.0 https://github.com/stadium-software/repeater-datagrid-client-side */
+/* Stadium Script v1.1 https://github.com/stadium-software/repeater-datagrid-client-side */
 let scope = this;
 let data = ~.Parameters.Input.Data || [];
 let cols = ~.Parameters.Input.Columns || [];
 let editMode = ~.Parameters.Input.EditableGrid || false;
 let state = ~.Parameters.Input.State || {};
+let callback = ~.Parameters.Input.Callback;
 let pageSize = parseInt(state.pageSize);
 let sortField = state.sortField || cols[0].name;
 let sortDirection = state.sortDirection || "";
@@ -124,11 +125,12 @@ for (let i = 0; i < cells.length; i++) {
     }
 }
 /*----------------------------------------------------------------------------------------------*/
-function setRepeaterData(p, d) {
+async function setRepeaterData(p, d) {
     let first = (p - 1) * pageSize;
     let pageData = d.slice(first, first + pageSize);
     attachData(pageData);
     writeCookie();
+    if (callback) await scope[callback](d);
 }
 function writeCookie() {
     let value = JSON.stringify({
@@ -530,7 +532,8 @@ Create a script under the page called "Initialise" with the input Parameter:
    3. ContainerClass: The unique class you assigned to the main container (e.g. client-side-datagrid)
    4. Data: Select the query *Result* or assign the JSON array to display from the API call
    5. State: The "State" *Type* created in step 1 of the "Initialise" script
-   6. EditableGrid: Ignore this property for standard data display. It's a boolean that hides the paging controls and changes header *Links* controls into *Label* controls
+   6. Callback (optional): Add the name of a page script that will be called after the assignment of the data
+   7. EditableGrid (optional): Ignore this property for standard data display. It's a boolean that hides the paging controls and changes header *Links* controls into *Label* controls
 
 ![](images/ScriptInputParams.png)
 
