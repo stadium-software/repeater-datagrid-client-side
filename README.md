@@ -40,6 +40,8 @@ The repo includes the sample application shown in the video:
 # Version
 1.1 Added an optional callback parameter for a page script that can be called after the assignment of the data
 
+1.2 Added "Classic" paging option; added "No data" display for empty datasets
+
 # Setup
 
 ## Database
@@ -62,10 +64,11 @@ In order to query the state of the *Repeater*, the second script called ["Client
    4. EditableGrid
    5. RepeaterControlName
    6. State
+   7. PagingType
 3. Drag a *JavaScript* action into the script
 4. Add the Javascript below into the JavaScript code property
 ```javascript
-/* Stadium Script v1.1 https://github.com/stadium-software/repeater-datagrid-client-side */
+/* Stadium Script v1.2 https://github.com/stadium-software/repeater-datagrid-client-side */
 let scope = this;
 let data = ~.Parameters.Input.Data || [];
 let cols = ~.Parameters.Input.Columns || [];
@@ -75,7 +78,9 @@ let callback = ~.Parameters.Input.Callback;
 let pageSize = parseInt(state.pageSize);
 let sortField = state.sortField || cols[0].name;
 let sortDirection = state.sortDirection || "";
+let pagingType = ~.Parameters.Input.PagingType || "default";
 let page = parseInt(state.page) || 1;
+let pagers = 10;
 let totalRecords = data.length;
 let repeaterName = ~.Parameters.Input.RepeaterControlName;
 if (isNaN(page)) page = 1;
@@ -132,6 +137,18 @@ async function setRepeaterData(p, d) {
     writeCookie();
     if (callback) await scope[callback](d);
 }
+function attachData(value) {
+    scope[`${repeaterName}List`] = value;
+    let noDataMsg = document.querySelector(".no-data-msg");
+    if (value.length == 0 && !noDataMsg) {
+        let noDataDiv = document.createElement("div");
+        noDataDiv.classList.add("no-data-msg");
+        noDataDiv.innerHTML = "No data to display.";
+        document.querySelector(".paging-stack-layout").appendChild(noDataDiv);
+    } else if (noDataMsg && value.length > 0) {
+        noDataMsg.remove();
+    }
+}
 function writeCookie() {
     let value = JSON.stringify({
         "pageSize": pageSize,
@@ -182,30 +199,53 @@ function addHeaders(c) {
 function addPaging() { 
     if (container.querySelector(".paging")) container.querySelector(".paging").remove();
     let pagingContainer = createTag("div", ["layout-control", "container-layout", "paging", "inline-block-element"], []);
-    let prevButtonContainer = createTag("div", ["control-container", "button-container", "previous-button"], []);
-    let prevButton = createTag("div", ["btn", "btn-lg", "btn-default"], [], "<<");
-    let nextButtonContainer = createTag("div", ["control-container", "button-container", "next-button"], []);
-    let nextButton = createTag("div", ["btn", "btn-lg", "btn-default"], [], ">>");
-    let goInputContainer = createTag("div", ["control-container", "text-box-container", "specific-page"], []);
-    let goInput = createTag("input", ["form-control", "error-border", "text-box-input", "specific-page-input"], [{name: "type", value: "text"}]);
-    let goButtonContainer = createTag("div", ["control-container", "button-container", "specific-page-go"], []);
-    let goButton = createTag("div", ["btn", "btn-lg", "btn-default"], [], "Go");
-    let pageInfoContainer = createTag("div", ["control-container", "label-container", "page-info"]);
-    let pageInfo = createTag("span", [], [], getPageLabel());
-    if (page == 1 || data.length == 0) prevButtonContainer.classList.add("disabled");
-    if (page == totalPages || data.length == 0) nextButtonContainer.classList.add("disabled");
-    prevButtonContainer.appendChild(prevButton);
-    nextButtonContainer.appendChild(nextButton);
-    goInputContainer.appendChild(goInput);
-    goButtonContainer.appendChild(goButton);
-    pageInfoContainer.appendChild(pageInfo);
+    if (pagingType.toLowerCase() == "classic") {
+        let pagingButtonsContainer = createTag("ul", ["pagination"], []);
+        let pagingButtons = addClassicPagingButtons(pagingButtonsContainer, page);
+        pagingContainer.appendChild(pagingButtons);
+    } else {
+        let prevButtonContainer = createTag("div", ["control-container", "button-container", "previous-button"], []);
+        let prevButton = createTag("div", ["btn", "btn-lg", "btn-default"], [], "<<");
+        let nextButtonContainer = createTag("div", ["control-container", "button-container", "next-button"], []);
+        let nextButton = createTag("div", ["btn", "btn-lg", "btn-default"], [], ">>");
+        let goInputContainer = createTag("div", ["control-container", "text-box-container", "specific-page"], []);
+        let goInput = createTag("input", ["form-control", "error-border", "text-box-input", "specific-page-input"], [{name: "type", value: "text"}]);
+        let goButtonContainer = createTag("div", ["control-container", "button-container", "specific-page-go"], []);
+        let goButton = createTag("div", ["btn", "btn-lg", "btn-default"], [], "Go");
+        let pageInfoContainer = createTag("div", ["control-container", "label-container", "page-info"]);
+        let pageInfo = createTag("span", [], [], getPageLabel());
+        if (page == 1 || data.length == 0) prevButtonContainer.classList.add("disabled");
+        if (page == totalPages || data.length == 0) nextButtonContainer.classList.add("disabled");
+        prevButtonContainer.appendChild(prevButton);
+        nextButtonContainer.appendChild(nextButton);
+        goInputContainer.appendChild(goInput);
+        goButtonContainer.appendChild(goButton);
+        pageInfoContainer.appendChild(pageInfo);
 
-    pagingContainer.appendChild(prevButtonContainer);
-    pagingContainer.appendChild(nextButtonContainer);
-    pagingContainer.appendChild(goInputContainer);
-    pagingContainer.appendChild(goButtonContainer);
-    pagingContainer.appendChild(pageInfoContainer);
+        pagingContainer.appendChild(prevButtonContainer);
+        pagingContainer.appendChild(nextButtonContainer);
+        pagingContainer.appendChild(goInputContainer);
+        pagingContainer.appendChild(goButtonContainer);
+        pagingContainer.appendChild(pageInfoContainer);
 
+        prevButton.addEventListener("click", function(){
+            handlePaging("previous");
+        });
+        nextButton.addEventListener("click", function(){
+            handlePaging("next");
+        });
+        goButton.addEventListener("click", function(){
+            handlePaging("go");
+        });
+        goInput.addEventListener("keypress", function (e) {
+            if ((e.keyCode < 48 || e.keyCode > 57)) {
+                e.preventDefault();
+            }
+            if (e.keyCode === 13) {
+                handlePaging("go");
+            }
+        });
+    }
     let stackLayout, allStacks = container.querySelectorAll(".stack-layout-container");
     for (let i = 0; i < allStacks.length; i++) {
         if (allStacks[i].contains(grid) && allStacks.length > i) {
@@ -218,24 +258,6 @@ function addPaging() {
     }
     stackLayout.classList.add('paging-stack-layout');
     stackLayout.insertBefore(pagingContainer, stackLayout.firstChild);
-
-    prevButton.addEventListener("click", function(){
-        handlePaging("previous");
-    });
-    nextButton.addEventListener("click", function(){
-        handlePaging("next");
-    });
-    goButton.addEventListener("click", function(){
-        handlePaging("go");
-    });
-    goInput.addEventListener("keypress", function (e) {
-        if ((e.keyCode < 48 || e.keyCode > 57)) {
-            e.preventDefault();
-        }
-        if (e.keyCode === 13) {
-            handlePaging("go");
-        }
-    });
 }
 function handlePaging(tp) { 
     let nextBtn = container.querySelector(".next-button"),
@@ -267,6 +289,62 @@ function handlePaging(tp) {
         pageInfo.textContent = getPageLabel();
         setRepeaterData(page, data);
     }
+}
+function addClassicPagingButtons(parent, currentPage) {
+    currentPage = currentPage - 1;
+    let firstPage = currentPage - (currentPage % 10);
+    let lastPage = firstPage + pagers;
+    parent.innerHTML = "";
+    if (totalPages < lastPage) lastPage = totalPages;
+    if (firstPage >= pagers) {
+        let pagingButton = createTag("li", [], []);
+        let pagingButtonInner = createTag("a", [], [], "«");
+        pagingButtonInner.addEventListener("click", handleClassicPaging);
+        pagingButton.appendChild(pagingButtonInner);
+        parent.appendChild(pagingButton);
+    }
+    for (let i = firstPage; i < lastPage; i++) {
+        let pagingButton = createTag("li", [], []);
+        if (i == currentPage) pagingButton.classList.add('active');
+        let pagingButtonInner = createTag("a", [], [], i + 1);
+        pagingButtonInner.addEventListener("click", handleClassicPaging);
+        pagingButton.appendChild(pagingButtonInner);
+        parent.appendChild(pagingButton);
+    }
+    if (totalPages > (firstPage + pagers)) {
+        let pagingButton = createTag("li", [], []);
+        let pagingButtonInner = createTag("a", [], [], "»");
+        pagingButtonInner.addEventListener("click", handleClassicPaging);
+        pagingButton.appendChild(pagingButtonInner);
+        parent.appendChild(pagingButton);
+    }
+    return parent;
+}
+function handleClassicPaging(ev) {
+    let el = ev.target;
+    let elParent = el.closest("li");
+    if (el.classList.contains("active")) {
+        return false;
+    }
+    let paging = container.querySelector(".paging");
+    let pagination = container.querySelector(".pagination");
+    paging.querySelector(".active").classList.remove("active");
+    let pg = el.textContent;
+    if (pg == "»") {
+        page = page % 10 === 0 ? page + 1 : page + pagers - (page % 10) + 1;
+        if (page > totalPages) page = totalPages - (totalPages % 10) + 1;
+        let pagingButtons = addClassicPagingButtons(pagination, page);
+        paging.appendChild(pagingButtons);
+    } else if (pg == "«") {
+        page = page % 10 === 0 ? page - pagers : page - (page % 10);
+        let pagingButtons = addClassicPagingButtons(pagination, page);
+        paging.appendChild(pagingButtons);
+    }
+    else {
+        page = Number(pg);
+        elParent.classList.add("active");
+    }
+    setRepeaterData(page, data);
 }
 function handleSort(e) { 
     let clickedEl = e.target;
@@ -354,9 +432,6 @@ function attachStyling() {
     style.type = 'text/css';
     style.id = contID + "_stylesheet";
     style.appendChild(document.createTextNode(css));
-}
-function attachData(value) {
-    scope[`${repeaterName}List`] = value;
 }
 ```
 
@@ -532,8 +607,9 @@ Create a script under the page called "Initialise" with the input Parameter:
    3. ContainerClass: The unique class you assigned to the main container (e.g. client-side-datagrid)
    4. Data: Select the query *Result* or assign the JSON array to display from the API call
    5. State: The "State" *Type* created in step 1 of the "Initialise" script
-   6. Callback (optional): Add the name of a page script that will be called after the assignment of the data
-   7. EditableGrid (optional): Ignore this property for standard data display. It's a boolean that hides the paging controls and changes header *Links* controls into *Label* controls
+   6. PagingType (optional): Leave blank or enter 'classic' for the standard Stadium DataGrid paging format
+   7. Callback (optional): Leave blank or add the name of a page script that will be called after the assignment of the data
+   8. EditableGrid (optional): Ignore this property for standard data display. It's a boolean that hides the paging controls and changes header *Links* controls into *Label* controls
 
 ![](images/ScriptInputParams.png)
 
