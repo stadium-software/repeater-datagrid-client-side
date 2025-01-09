@@ -42,6 +42,8 @@ The repo includes the sample application shown in the video:
 
 1.2 Added "Classic" paging option; added "No data" display for empty datasets
 
+1.3 Fixed callback script caller
+
 # Setup
 
 ## Database
@@ -66,9 +68,9 @@ In order to query the state of the *Repeater*, the second script called ["Client
    6. State
    7. PagingType
 3. Drag a *JavaScript* action into the script
-4. Add the Javascript below into the JavaScript code property
+4. Add the Javascript below unchanged into the JavaScript code property
 ```javascript
-/* Stadium Script v1.2 https://github.com/stadium-software/repeater-datagrid-client-side */
+/* Stadium Script v1.3 https://github.com/stadium-software/repeater-datagrid-client-side */
 let scope = this;
 let data = ~.Parameters.Input.Data || [];
 let cols = ~.Parameters.Input.Columns || [];
@@ -112,6 +114,21 @@ if (grid.length == 0) {
 }
 let contID = container.id;
 let cellsPerRow = cols.length;
+let tries = 0;
+let wait = async (milliseconds) => new Promise((resolve) => setTimeout(resolve, milliseconds));
+let scriptCaller = async (script, parameters) => {
+    tries++;
+    if (tries > 20) {
+    	return false;
+    } else {
+        try {
+            await scope[script](data);
+            return true;
+        } catch (error) {
+            wait(100).then(() => scriptCaller(script, parameters));
+        }
+    }
+};
 if (document.getElementById(contID + "_stylesheet")) document.getElementById(contID + "_stylesheet").remove();
 attachStyling();
 addHeaders(cols);
@@ -135,7 +152,7 @@ async function setRepeaterData(p, d) {
     let pageData = d.slice(first, first + pageSize);
     attachData(pageData);
     writeCookie();
-    if (callback) await scope[callback](d);
+    if (callback) await scriptCaller(callback, d);
 }
 function attachData(value) {
     scope[`${repeaterName}List`] = value;
@@ -445,7 +462,7 @@ function attachStyling() {
 5. Drag a *SetValue* under the *JavaScript* action
    1. Target: ~.Parameters.Output.State
    2. Source: ~.JavaScript
-6. Add the Javascript below into the JavaScript code property
+6. Add the Javascript below unchanged into the JavaScript code property
 ```javascript
 /* Stadium Script v1.0 https://github.com/stadium-software/repeater-datagrid-client-side */
 let containerClass = ~.Parameters.Input.ContainerClass;
@@ -645,6 +662,7 @@ The CSS below is required for the correct functioning of the module. Some elemen
 1. Open the CSS file called [*stadium-client-side-repeater-datagrid-variables.css*](stadium-client-side-repeater-datagrid-variables.css) from this repo
 2. Adjust the variables in the *:root* element as you see fit
 3. Overwrite the file in the CSS folder of your application with the customised file
+4. Do not change any CSS other than the variables provided in the *-variables.css file
 
 # Working with Stadium Repos
 Stadium Repos are not static. They change as additional features are added and bugs are fixed. Using the right method to work with Stadium Repos allows for upgrading them in a controlled manner. How to use and update application repos is described here 
