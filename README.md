@@ -21,6 +21,7 @@
     - ["Initialise" Page Script](#initialise-page-script)
     - ["Initialise" Setup](#initialise-setup)
   - [Page.Load Event Handler](#pageload-event-handler)
+- [Advanced Filters](#advanced-filters)
   - [CSS Files](#css-files)
   - [Styling Customisations](#styling-customisations)
 - [Working with Stadium Repos](#working-with-stadium-repos)
@@ -32,11 +33,6 @@ Examples are also provided on how to achieve a variety of other common DataGrid 
 
 https://github.com/user-attachments/assets/c6d7890c-16b5-456d-a71e-f92b6a701da3
 
-### Example Application
-The repo includes the sample application shown in the video:
-
-[Client-Side-Repeater-DataGrid.sapz](Stadium6/Client-Side-Repeater-DataGrid.sapz?raw=true)
-
 # Version
 1.1 Added an optional callback parameter for a page script that can be called after the assignment of the data
 
@@ -47,7 +43,7 @@ The repo includes the sample application shown in the video:
 # Setup
 
 ## Database
-[Follow these instructions](database-setup.md) to set up the "FilterData" database. Then add a connector called "StadiumFilterData". 
+[Follow these instructions](https://github.com/stadium-software/samples-repeater) to set up the "FilterData" database. Then add a connector called "StadiumFilterData". 
 
 ## Application Setup
 1. Check the *Enable Style Sheet* checkbox in the application properties
@@ -646,6 +642,9 @@ Create a script under the page called "Initialise" with the input Parameter:
    1. Assign the "State" type to the "State" input parameter
 
 ![](images/Page.Load.png)
+
+# Advanced Filters
+Use the [Filter Grid Generator](https://github.com/stadium-software/filter-grid) to generate a filtergrid or build a custom set of filters (for an example check the [sapz](Stadium6/Client-Side-Repeater-DataGrid.sapz) file). 
 
 ## CSS Files
 The CSS below is required for the correct functioning of the module. Some elements can be [customised](#customising-css) using a variables CSS file. 
