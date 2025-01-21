@@ -21,9 +21,9 @@
     - ["Initialise" Page Script](#initialise-page-script)
     - ["Initialise" Setup](#initialise-setup)
   - [Page.Load Event Handler](#pageload-event-handler)
-- [Advanced Filters](#advanced-filters)
   - [CSS Files](#css-files)
   - [Styling Customisations](#styling-customisations)
+- [Advanced Filters](#advanced-filters)
 - [Working with Stadium Repos](#working-with-stadium-repos)
 
 ## Overview
@@ -643,9 +643,6 @@ Create a script under the page called "Initialise" with the input Parameter:
 
 ![](images/Page.Load.png)
 
-# Advanced Filters
-Use the [Filter Grid Generator](https://github.com/stadium-software/filter-grid) to generate a filtergrid or build a custom set of filters (for an example check the [sapz](Stadium6/Client-Side-Repeater-DataGrid.sapz) file). 
-
 ## CSS Files
 The CSS below is required for the correct functioning of the module. Some elements can be [customised](#customising-css) using a variables CSS file. 
 
@@ -662,6 +659,9 @@ The CSS below is required for the correct functioning of the module. Some elemen
 2. Adjust the variables in the *:root* element as you see fit
 3. Overwrite the file in the CSS folder of your application with the customised file
 4. Do not change any CSS other than the variables provided in the *-variables.css file
+
+# Advanced Filters
+Use the [Filter Grid Generator](https://github.com/stadium-software/filter-grid) to generate a filtergrid or build a custom set of filters (for an example check the [sapz](Stadium6/Client-Side-Repeater-DataGrid.sapz) file). 
 
 # Working with Stadium Repos
 Stadium Repos are not static. They change as additional features are added and bugs are fixed. Using the right method to work with Stadium Repos allows for upgrading them in a controlled manner. How to use and update application repos is described here 
