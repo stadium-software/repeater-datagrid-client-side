@@ -40,6 +40,8 @@ https://github.com/user-attachments/assets/c6d7890c-16b5-456d-a71e-f92b6a701da3
 
 1.3 Fixed callback script caller
 
+1.4 Removed double no data message when empty set
+
 # Setup
 
 ## Database
@@ -66,7 +68,7 @@ In order to query the state of the *Repeater*, the second script called ["Client
 3. Drag a *JavaScript* action into the script
 4. Add the Javascript below unchanged into the JavaScript code property
 ```javascript
-/* Stadium Script v1.3 https://github.com/stadium-software/repeater-datagrid-client-side */
+/* Stadium Script v1.4 https://github.com/stadium-software/repeater-datagrid-client-side */
 let scope = this;
 let data = ~.Parameters.Input.Data || [];
 let cols = ~.Parameters.Input.Columns || [];
@@ -152,15 +154,6 @@ async function setRepeaterData(p, d) {
 }
 function attachData(value) {
     scope[`${repeaterName}List`] = value;
-    let noDataMsg = document.querySelector(".no-data-msg");
-    if (value.length == 0 && !noDataMsg) {
-        let noDataDiv = document.createElement("div");
-        noDataDiv.classList.add("no-data-msg");
-        noDataDiv.innerHTML = "No data to display.";
-        document.querySelector(".paging-stack-layout").appendChild(noDataDiv);
-    } else if (noDataMsg && value.length > 0) {
-        noDataMsg.remove();
-    }
 }
 function writeCookie() {
     let value = JSON.stringify({
