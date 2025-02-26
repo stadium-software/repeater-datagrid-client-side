@@ -15,7 +15,6 @@
             padding-right: 12px;
         }
     }
-
     .grid-item:has(> .control-container.visually-hidden),
     .grid-item:has(> .control-container[style='display: none;']) {
         padding: 0;
@@ -24,7 +23,6 @@
     .control-container.visually-hidden {
         padding: 0;
     }
-
     .grid-item:not(.grid-repeater-item) {
         border-top: 1px solid var(--dg-border-color, var(--DATA-GRID-BORDER-COLOR));
         border-bottom: 3px solid var(--dg-border-color, var(--DATA-GRID-BORDER-COLOR));
@@ -36,18 +34,15 @@
             text-transform: var(--dg-header-text-transform);
         }
     }
-
     .grid-item:not(.grid-repeater-item) .btn.btn-link {
         text-transform: var(--dg-header-text-transform);
         text-decoration: var(--dg-header-link-underline);
         font-weight: var(--dg-header-font-weight);
         font-size: var(--dg-header-font-size, var(--DATA-GRID-HEADER-CELL-FONT-SIZE));
     }
-
     .dg-alternate-row {
         background-color: var(--dg-alternate-row-bg-color, var(--DATA-GRID-ODD-ROW-BACKGROUND-COLOR));
     }
-
     .dg-asc-sorting {
         background-image: var(--dg-sorting-asc-icon, var(--DATA-GRID-SORT-ARROW-ASC-ICON));
         background-repeat: no-repeat;
