@@ -65,6 +65,7 @@ In order to query the state of the *Repeater*, the second script called ["Client
    5. RepeaterControlName
    6. State
    7. PagingType
+   8. Callback
 3. Drag a *JavaScript* action into the script
 4. Add the Javascript below unchanged into the JavaScript code property
 ```javascript
