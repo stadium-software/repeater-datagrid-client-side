@@ -2,6 +2,10 @@
     margin-top: 10px;
     align-items: center;
 
+    .control-container.grid-container.grid-layout {
+        padding-right: 0;
+    }
+
     .grid-item {
         display: flex;
         align-items: center;

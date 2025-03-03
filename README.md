@@ -42,6 +42,8 @@ https://github.com/user-attachments/assets/c6d7890c-16b5-456d-a71e-f92b6a701da3
 
 1.4 Removed double no data message when empty set
 
+1.5 Fixed null string value sorting bug
+
 # Setup
 
 ## Database
@@ -69,7 +71,7 @@ In order to query the state of the *Repeater*, the second script called ["Client
 3. Drag a *JavaScript* action into the script
 4. Add the Javascript below unchanged into the JavaScript code property
 ```javascript
-/* Stadium Script v1.4 https://github.com/stadium-software/repeater-datagrid-client-side */
+/* Stadium Script v1.5 https://github.com/stadium-software/repeater-datagrid-client-side */
 let scope = this;
 let data = ~.Parameters.Input.Data || [];
 let cols = ~.Parameters.Input.Columns || [];
@@ -282,6 +284,7 @@ function handlePaging(tp) {
     }
     if (tp == "go" && goInpt.value) {
         let pgVal = goInpt.value;
+        if (pgVal) pgVal = pgVal.replaceAll(",","").replaceAll(" ","");
         goInpt.value = "";
         if (!isNaN(pgVal) && pgVal >= 1 && pgVal <= totalPages) {
             page = parseInt(pgVal);
@@ -375,10 +378,14 @@ function sort(field, direction) {
         sortDirection = direction;
         sortField = field;
         if (typeof data[0][sortField] == "string" && direction == "asc") {
-            data.sort((a, b) => a[sortField].localeCompare(b[sortField]));
+            data.sort(function (a, b) {
+                if (a[sortField] && b[sortField]) return a[sortField].localeCompare(b[sortField]);
+            });
         }
         if (typeof data[0][sortField] == "string" && direction == "desc") {
-            data.sort((a, b) => b[sortField].localeCompare(a[sortField]));
+            data.sort(function (a, b) {
+                if (a[sortField] && b[sortField]) return b[sortField].localeCompare(a[sortField]);
+            });
         }
         if (typeof data[0][sortField] == "number" && direction == "asc") {
             data.sort((a, b) => a[sortField] - b[sortField]);
