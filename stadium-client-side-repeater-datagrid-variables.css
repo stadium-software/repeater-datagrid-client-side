@@ -1,16 +1,17 @@
 :root {
     --dg-border-color: #cccccc;
     --dg-alternate-row-bg-color: #f9f9f9;
-    --dg-item-font-size: 14px;
-    --dg-header-font-size: 12px;
+    --dg-item-font-size: 1.4rem;
+    --dg-header-font-size: 1.2rem;
     --dg-header-text-transform: uppercase;
     --dg-header-font-weight: bold;
     --dg-header-link-underline: underline;
-    --dg-header-padding: 6px;
+    --dg-header-topbottom-padding: 0.6rem;
+    --dg-header-rightleft-padding: 0.6rem;
 
     --dg-sorting-asc-icon: url("data:image/svg+xml,%3Csvg%20version%3D%221.1%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%228px%22%20height%3D%224px%22%20viewBox%3D%220%200%208%204%22%3E%3Cpolygon%20fill%3D%22rgba(154, 154, 154, 1)%22%20points%3D%220%2C0%204%2C4%208%2C0%20%22%2F%3E%3C%2Fsvg%3E");
     --dg-sorting-desc-icon: url("data:image/svg+xml,%3Csvg%20version%3D%221.1%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%228px%22%20height%3D%224px%22%20viewBox%3D%220%200%208%204%22%3E%3Cpolygon%20fill%3D%22rgba(154, 154, 154, 1)%22%20points%3D%220%2C4%204%2C0%208%2C4%20%22%2F%3E%3C%2Fsvg%3E");
-    --dg-sorting-icon-size: 10px;
+    --dg-sorting-icon-size: 1rem;
 
-    --dg-paging-specific-page-textbox-width: 60px;
+    --dg-paging-specific-page-textbox-width: 6rem;
 }

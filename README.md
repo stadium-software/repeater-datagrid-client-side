@@ -21,10 +21,11 @@
     - ["Initialise" Page Script](#initialise-page-script)
     - ["Initialise" Setup](#initialise-setup)
   - [Page.Load Event Handler](#pageload-event-handler)
-  - [CSS Files](#css-files)
-  - [Styling Customisations](#styling-customisations)
-- [Advanced Filters](#advanced-filters)
-- [Working with Stadium Repos](#working-with-stadium-repos)
+  - [CSS](#css)
+    - [Before v6.12](#before-v612)
+    - [v6.12+](#v612)
+    - [Customising CSS](#customising-css)
+  - [Upgrading Stadium Repos](#upgrading-stadium-repos)
 
 ## Overview
 Using a *Repeater* control to display data allows for more flexibility, customisability and extensbility than a standard DataGrid. This module provides the functionality to sort and page through a DataSet assigned to a *Repeater*. 
@@ -43,6 +44,8 @@ https://github.com/user-attachments/assets/c6d7890c-16b5-456d-a71e-f92b6a701da3
 1.4 Removed double no data message when empty set
 
 1.5 Fixed null string value sorting bug
+
+1.6 Updated readme to 6.12+; converted px to rem; fixed display bugs
 
 # Setup
 
@@ -71,7 +74,7 @@ In order to query the state of the *Repeater*, the second script called ["Client
 3. Drag a *JavaScript* action into the script
 4. Add the Javascript below unchanged into the JavaScript code property
 ```javascript
-/* Stadium Script v1.5 https://github.com/stadium-software/repeater-datagrid-client-side */
+/* Stadium Script v1.6 https://github.com/stadium-software/repeater-datagrid-client-side */
 let scope = this;
 let data = ~.Parameters.Input.Data || [];
 let cols = ~.Parameters.Input.Columns || [];
@@ -432,10 +435,10 @@ function attachStyling() {
     let css = `
 #${contID} {
     .grid-item:nth-child(${cellsPerRow}n+1) {
-        border-left: 1px solid var(--dg-border-color);
+        border-left: 1px solid var(--dg-border-color, var(--DATA-GRID-BORDER-COLOR, #ccc));
     }
     .grid-item:nth-child(${cellsPerRow}n) {
-        border-right: 1px solid var(--dg-border-color);
+        border-right: 1px solid var(--dg-border-color, var(--DATA-GRID-BORDER-COLOR, #ccc));
     }
     ${selector.join(", ")} {
         background-color: var(--dg-alternate-row-bg-color, var(--DATA-GRID-ODD-ROW-BACKGROUND-COLOR));
@@ -644,27 +647,40 @@ Create a script under the page called "Initialise" with the input Parameter:
 
 ![](images/Page.Load.png)
 
-## CSS Files
-The CSS below is required for the correct functioning of the module. Some elements can be [customised](#customising-css) using a variables CSS file. 
+## CSS
+The CSS below is required for the correct functioning of the module. Variables exposed in the [*stadium-client-side -repeater-datagrid-variables.css*](stadium-client-side -repeater-datagrid-variables.css) file can be [customised](#customising-css).
 
+### Before v6.12
 1. Create a folder called "CSS" inside of your Embedded Files in your application
-2. Drag the two CSS files from this repo [*stadium-client-side-repeater-datagrid-variables.css*](stadium-client-side-repeater-datagrid-variables.css) and [*stadium-client-side-repeater-datagrid.css*](stadium-client-side-repeater-datagrid.css) into that folder
+2. Drag the two CSS files from this repo [*stadium-client-side -repeater-datagrid-variables.css*](stadium-client-side -repeater-datagrid-variables.css) and [*stadium-client-side -repeater-datagrid.css*](stadium-client-side -repeater-datagrid.css) into that folder
 3. Paste the link tags below into the *head* property of your application
 ```html
-<link rel="stylesheet" href="{EmbeddedFiles}/CSS/stadium-client-side-repeater-datagrid.css">
-<link rel="stylesheet" href="{EmbeddedFiles}/CSS/stadium-client-side-repeater-datagrid-variables.css">
+<link rel="stylesheet" href="{EmbeddedFiles}/CSS/stadium-client-side -repeater-datagrid.css">
+<link rel="stylesheet" href="{EmbeddedFiles}/CSS/stadium-client-side -repeater-datagrid-variables.css">
 ``` 
 
-## Styling Customisations
-1. Open the CSS file called [*stadium-client-side-repeater-datagrid-variables.css*](stadium-client-side-repeater-datagrid-variables.css) from this repo
+### v6.12+
+1. Create a folder called "CSS" inside of your Embedded Files in your application
+2. Drag the CSS files from this repo [*stadium-client-side -repeater-datagrid.css*](stadium-client-side -repeater-datagrid.css) into that folder
+3. Paste the link tag below into the *head* property of your application
+```html
+<link rel="stylesheet" href="{EmbeddedFiles}/CSS/stadium-client-side -repeater-datagrid.css">
+``` 
+
+### Customising CSS
+1. Open the CSS file called [*stadium-client-side -repeater-datagrid-variables.css*](stadium-client-side -repeater-datagrid-variables.css) from this repo
 2. Adjust the variables in the *:root* element as you see fit
-3. Overwrite the file in the CSS folder of your application with the customised file
-4. Do not change any CSS other than the variables provided in the *-variables.css file
+3. Stadium 6.12+ users can comment out any variable they do **not** want to customise
+4. Add the [*stadium-client-side -repeater-datagrid-variables.css*](stadium-client-side -repeater-datagrid-variables.css) to the "CSS" folder in the EmbeddedFiles (overwrite)
+5. Paste the link tag below into the *head* property of your application (if you don't already have it there)
+```html
+<link rel="stylesheet" href="{EmbeddedFiles}/CSS/stadium-client-side -repeater-datagrid-variables.css">
+``` 
+6. Add the file to the "CSS" inside of your Embedded Files in your application
 
-# Advanced Filters
-Use the [Filter Grid Generator](https://github.com/stadium-software/filter-grid) to generate a filtergrid or build a custom set of filters (for an example check the [sapz](Stadium6/Client-Side-Repeater-DataGrid.sapz) file). 
+**NOTE: Do not change any of the CSS in the 'stadium-client-side -repeater-datagrid.css' file**
 
-# Working with Stadium Repos
-Stadium Repos are not static. They change as additional features are added and bugs are fixed. Using the right method to work with Stadium Repos allows for upgrading them in a controlled manner. How to use and update application repos is described here 
+## Upgrading Stadium Repos
+Stadium Repos are not static. They change as additional features are added and bugs are fixed. Using the right method to work with Stadium Repos allows for upgrading them in a controlled manner. 
 
-[Working with Stadium Repos](https://github.com/stadium-software/samples-upgrading)
+How to use and update application repos is described here: [Working with Stadium Repos](https://github.com/stadium-software/samples-upgrading)

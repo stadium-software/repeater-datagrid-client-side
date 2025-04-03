@@ -1,5 +1,5 @@
 .stadium-client-side-dg-repeater {
-    margin-top: 10px;
+    margin-top: 1rem;
     align-items: center;
 
     .control-container.grid-container.grid-layout {
@@ -9,16 +9,18 @@
     .grid-item {
         display: flex;
         align-items: center;
-        border-bottom: 1px solid var(--dg-border-color, var(--DATA-GRID-BORDER-COLOR));
-        padding: 5px;
-
+        border-bottom: 0.1rem solid var(--dg-border-color, var(--DATA-GRID-BORDER-COLOR, #ccc));
+        padding: var(--DATA-GRID-CELL-TOPBOTTOM-PADDING, 0.8rem) var(--DATA-GRID-CELL-RIGHTLEFT-PADDING, 0.8rem);
+        
         .control-container {
-            font-size: var(--dg-item-font-size, var(--DATA-GRID-CELL-FONT-SIZE));
+            font-size: var(--dg-item-font-size, var(--DATA-GRID-CELL-FONT-SIZE, 1.4rem));
             margin-top: 0;
             vertical-align: -webkit-baseline-middle;
-            padding-right: 12px;
+            padding-right: 0.6rem;
+            color: var(--DATA-GRID-CELL-FONT-COLOR, var(--BODY-FONT-COLOR, #333));
         }
     }
+
     .grid-item:has(> .control-container.visually-hidden),
     .grid-item:has(> .control-container[style='display: none;']) {
         padding: 0;
@@ -27,26 +29,35 @@
     .control-container.visually-hidden {
         padding: 0;
     }
-    .grid-item:not(.grid-repeater-item) {
-        border-top: 1px solid var(--dg-border-color, var(--DATA-GRID-BORDER-COLOR));
-        border-bottom: 3px solid var(--dg-border-color, var(--DATA-GRID-BORDER-COLOR));
-        padding: var(--dg-header-padding);
 
+    .repeater-header {
+        border-top: 0.1rem solid var(--dg-border-color, var(--DATA-GRID-HEADER-CELL-BORDER-COLOR, #ccc));
+        border-bottom: 0.3rem solid var(--dg-border-color, var(--DATA-GRID-HEADER-CELL-BORDER-COLOR, #ccc));
+        padding: var(--dg-header-topbottom-padding, var(--DATA-GRID-HEADER-CELL-TOPBOTTOM-PADDING, 0.8rem)) var(--dg-header-rightleft-padding, var(--DATA-GRID-HEADER-CELL-RIGHTLEFT-PADDING, 0.8rem));
+        background-color: var(--DATA-GRID-HEADER-ROW-BACKGROUND-COLOR, #fff);
+
+        .btn.btn-link, 
         span {
-            font-weight: var(--dg-header-font-weight);
-            font-size: var(--dg-header-font-size, var(--DATA-GRID-HEADER-CELL-FONT-SIZE));
-            text-transform: var(--dg-header-text-transform);
+            text-transform: var(--dg-header-text-transform, var(--DATA-GRID-HEADER-CELL-TEXT-TRANSFORM, uppercase));
+            font-weight: var(--dg-header-font-weight, var(--DATA-GRID-HEADER-CELL-FONT-WEIGHT, 600));
+            font-size: var(--dg-header-font-size, var(--DATA-GRID-HEADER-CELL-FONT-SIZE, 1.2rem));
+            color: var(--DATA-GRID-HEADER-CELL-FONT-COLOR, #1976d2);
+            line-height: var(--DATA-GRID-HEADER-CELL-LINE-HEIGHT, 1.428571429);
+            white-space: nowrap;
         }
-    }
-    .grid-item:not(.grid-repeater-item) .btn.btn-link {
-        text-transform: var(--dg-header-text-transform);
-        text-decoration: var(--dg-header-link-underline);
-        font-weight: var(--dg-header-font-weight);
-        font-size: var(--dg-header-font-size, var(--DATA-GRID-HEADER-CELL-FONT-SIZE));
+        .btn.btn-link {
+            text-decoration: var(--dg-header-link-underline, var(--DATA-GRID-HEADER-CELL-TEXT-DECORATION, underline));
+
+            &:hover {
+                text-decoration: var(--dg-header-link-underline, var(--DATA-GRID-HEADER-CELL-HOVER-TEXT-DECORATION, underline));
+                color: var(--DATA-GRID-HEADER-CELL-HOVER-FONT-COLOR, #999)
+            }
+        }
     }
     .dg-alternate-row {
         background-color: var(--dg-alternate-row-bg-color, var(--DATA-GRID-ODD-ROW-BACKGROUND-COLOR));
     }
+
     .dg-asc-sorting {
         background-image: var(--dg-sorting-asc-icon, var(--DATA-GRID-SORT-ARROW-ASC-ICON));
         background-repeat: no-repeat;
@@ -64,13 +75,14 @@
     .paging-stack-layout {
         display: flex;
         align-items: center;
-        padding: 4px 0;
-        border: 1px solid var(--dg-border-color, var(--DATA-GRID-BORDER-COLOR));
+        padding: 0.4rem 0;
+        border: 0.1rem solid var(--dg-border-color, var(--DATA-GRID-BORDER-COLOR));
+        /*width: calc(100% - var(--CONTROL-CONTAINER-RIGHT-PADDING, 1.6rem));*/
 
         .control-container {
             margin-top: 0;
             vertical-align: -webkit-baseline-middle;
-            padding-right: 12px;
+            padding-right: 1.2rem;
         }
 
         .current-page {
@@ -78,18 +90,18 @@
         }
 
         .label-container {
-            margin-left: 4px;
+            margin-left: 0.4rem;
             span {
-                font-size: 12px;
+                font-size: 1.2rem;
             }
         }
 
         .button-container {
-            padding-right: 2px;
+            padding-right: 0.2rem;
         }
 
         .button-container:first-child {
-            padding-left: 6px;
+            padding-left: 0.6rem;
         }
 
         .button-container.disabled .btn {
@@ -99,25 +111,29 @@
 
         .btn {
             width: auto;
-            padding: 2px 6px;
-            font-size: 12px;
+            padding: 0.2rem 0.6rem;
+            font-size: 1.2rem;
             box-shadow: none;
         }
         
         .text-box-container {
-            padding: 0 4px 0 12px;
+            padding: 0 0.4rem 0 1.2rem;
             
         input[type='text'].form-control {
-                width: var(--dg-paging-specific-page-textbox-width, 60px);
-                height: 22px;
-                padding: 0 4px;
+                width: var(--dg-paging-specific-page-textbox-width, 6rem);
+                height: 2.2rem;
+                padding: 0 0.4rem;
             }
         }
         .pagination {
-            padding: 2px 6px;
+            padding: 0.2rem 0.6rem;
             a {
                 user-select: none;
             }
         }
     }
+}
+html {
+    min-height: 100%;
+    font-size: 62.5%;
 }
