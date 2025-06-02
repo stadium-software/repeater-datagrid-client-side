@@ -16,7 +16,7 @@
             font-size: var(--dg-item-font-size, var(--DATA-GRID-CELL-FONT-SIZE, 1.4rem));
             margin-top: 0;
             vertical-align: -webkit-baseline-middle;
-            padding-right: 0.6rem;
+            padding-right: 1rem;
             color: var(--DATA-GRID-CELL-FONT-COLOR, var(--BODY-FONT-COLOR, #333));
         }
     }
