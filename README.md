@@ -47,6 +47,8 @@ https://github.com/user-attachments/assets/c6d7890c-16b5-456d-a71e-f92b6a701da3
 
 1.6 Updated readme to 6.12+; converted px to rem; fixed display bugs
 
+1.7 Added support for retrieving repeater data
+
 # Setup
 
 ## Database
@@ -74,7 +76,7 @@ In order to query the state of the *Repeater*, the second script called ["Client
 3. Drag a *JavaScript* action into the script
 4. Add the Javascript below unchanged into the JavaScript code property
 ```javascript
-/* Stadium Script v1.6 https://github.com/stadium-software/repeater-datagrid-client-side */
+/* Stadium Script v1.7 https://github.com/stadium-software/repeater-datagrid-client-side */
 let scope = this;
 let data = ~.Parameters.Input.Data || [];
 let cols = ~.Parameters.Input.Columns || [];
@@ -450,6 +452,9 @@ function attachStyling() {
     style.id = contID + "_stylesheet";
     style.appendChild(document.createTextNode(css));
 }
+window.rData = function() {
+    return data;
+};
 ```
 
 ### ClientSideRepeaterDataGridState Script
@@ -484,6 +489,22 @@ let ret = getCookieValue(container.id);
 if (ret)  ret = JSON.parse(decodeURIComponent(ret));
 return ret;
 ```
+
+### ClientSideRepeaterDataGridGetData Script
+1. Create a Global Script called "ClientSideRepeaterDataGridGetData"
+2. Add the *output* parameter below to the Global Script
+   1. Data
+3. Drag a *JavaScript* action into the script
+4. Drag a *SetValue* under the *JavaScript* action
+   1. Target: ~.Parameters.Output.Data
+   2. Source: ~.JavaScript
+5. Add the Javascript below unchanged into the JavaScript code property
+```javascript
+/* Stadium Script v1.0 https://github.com/stadium-software/repeater-datagrid-client-side */
+return window.rData();
+```
+
+NOTE: For this script to work, you can only have one Repeater on the page
 
 ## Types
 Create three types
