@@ -212,7 +212,7 @@ function addHeaders(c) {
 }
 function addPaging() { 
     if (container.querySelector(".paging")) container.querySelector(".paging").remove();
-    let pagingContainer = createTag("div", ["layout-control", "container-layout", "paging", "inline-block-element"], []);
+    let pagingContainer = createTag("div", ["layout-control", "container-layout", "paging", "inline-block-element", "data-grid-container"], []);
     if (pagingType.toLowerCase() == "classic") {
         let pagingButtonsContainer = createTag("ul", ["pagination"], []);
         let pagingButtons = addClassicPagingButtons(pagingButtonsContainer, page);
