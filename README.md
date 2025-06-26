@@ -51,9 +51,6 @@ https://github.com/user-attachments/assets/c6d7890c-16b5-456d-a71e-f92b6a701da3
 
 # Setup
 
-## Database
-[Follow these instructions](https://github.com/stadium-software/samples-repeater) to set up the "FilterData" database. Then add a connector called "StadiumFilterData". 
-
 ## Application Setup
 1. Check the *Enable Style Sheet* checkbox in the application properties
 
