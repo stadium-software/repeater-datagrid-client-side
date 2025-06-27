@@ -34,6 +34,17 @@ Examples are also provided on how to achieve a variety of other common DataGrid 
 
 https://github.com/user-attachments/assets/c6d7890c-16b5-456d-a71e-f92b6a701da3
 
+# Basic Setup Overview
+
+1. Add the [ClientSideRepeaterDataGrid](#clientsiderepeaterdatagrid-script) script
+2. Add the [types](#types)
+3. Add the [controls](#page) to your Page
+4. Create the [Page Scripts](#page-scripts)
+5. Create the [Page.Load](#pageload) event handler
+6. Add the [CSS](#css) to your Embedded files and reference them in the application  header property
+
+Check out the included sample application or the [Repeater DataGrid](https://github.com/stadium-software/repeater-datagrid) repo to find out how to add some more advanced features
+
 # Version
 1.1 Added an optional callback parameter for a page script that can be called after the assignment of the data
 
