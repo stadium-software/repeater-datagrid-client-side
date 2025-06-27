@@ -114,6 +114,9 @@
             padding: 0.2rem 0.6rem;
             font-size: 1.2rem;
             box-shadow: none;
+            color: var(--DATA-GRID-PAGINATION-ACTIVE-FONT-COLOR);
+            background-color: var(--DATA-GRID-PAGINATION-ACTIVE-BACKGROUND-COLOR);
+            border-color: var(--DATA-GRID-PAGINATION-ACTIVE-BORDER-COLOR);
         }
         
         .text-box-container {
@@ -129,6 +132,16 @@
             padding: 0.2rem 0.6rem;
             a {
                 user-select: none;
+                text-decoration: none;
+                color: var(--DATA-GRID-PAGINATION-FONT-COLOR);
+                background-color: var(--DATA-GRID-PAGINATION-BACKGROUND-COLOR);
+                border: 0.1rem solid var(--DATA-GRID-PAGINATION-BORDER-COLOR);
+            }
+            .active a,
+            a:hover {
+                color: var(--DATA-GRID-PAGINATION-ACTIVE-FONT-COLOR);
+                background-color: var(--DATA-GRID-PAGINATION-ACTIVE-BACKGROUND-COLOR);
+                border-color: var(--DATA-GRID-PAGINATION-ACTIVE-BORDER-COLOR);
             }
         }
     }
