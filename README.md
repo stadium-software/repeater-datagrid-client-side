@@ -60,6 +60,8 @@ Check out the included sample application or the [Repeater DataGrid](https://git
 
 1.7 Added support for retrieving repeater data
 
+1.7.1 Replaced "Editable Grid" feature with [ClientSideRepeaterDataGridGetData script](#clientsiderepeaterdatagridgetdata-script)
+
 # Setup
 
 ## Application Setup
@@ -76,19 +78,17 @@ In order to query the state of the *Repeater*, the second script called ["Client
    1. Columns
    2. ContainerClass
    3. Data
-   4. EditableGrid
-   5. RepeaterControlName
-   6. State
-   7. PagingType
-   8. Callback
+   4. RepeaterControlName
+   5. State
+   6. PagingType
+   7. Callback
 3. Drag a *JavaScript* action into the script
 4. Add the Javascript below unchanged into the JavaScript code property
 ```javascript
-/* Stadium Script v1.7 https://github.com/stadium-software/repeater-datagrid-client-side */
+/* Stadium Script v1.7.1 https://github.com/stadium-software/repeater-datagrid-client-side */
 let scope = this;
 let data = ~.Parameters.Input.Data || [];
 let cols = ~.Parameters.Input.Columns || [];
-let editMode = ~.Parameters.Input.EditableGrid || false;
 let state = ~.Parameters.Input.State || {};
 let callback = ~.Parameters.Input.Callback;
 let pageSize = parseInt(state.pageSize);
@@ -146,9 +146,7 @@ let scriptCaller = async (script, parameters) => {
 if (document.getElementById(contID + "_stylesheet")) document.getElementById(contID + "_stylesheet").remove();
 attachStyling();
 addHeaders(cols);
-if (!editMode) {
-    addPaging();
-}
+addPaging();
 sort(sortField, sortDirection);
 let cells = container.querySelectorAll(".grid-repeater-item");
 let rowNo = 1, cellCounter = 0;
@@ -201,7 +199,7 @@ function addHeaders(c) {
     for (let i = c.length-1; i > -1; i--) {
         let gItem = createTag("div", ["grid-item", "repeater-header"], []);
         let el = createTag("div"), inner;
-        if (c[i].header && c[i]?.sortable !== false && c[i]?.sortable !== "false" && !editMode) {
+        if (c[i].header && c[i]?.sortable !== false && c[i]?.sortable !== "false") {
             el = createTag("div", ["control-container", "link-container"]);
             inner = createTag("a", ["btn", "btn-lg", "btn-link"], [{name: "rel", value:"noopener noreferrer"}, {name: "field", value:c[i].name}], c[i].header);
             inner.addEventListener("click", handleSort);
