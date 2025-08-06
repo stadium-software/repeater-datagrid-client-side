@@ -28,6 +28,7 @@
     }
     .control-container.visually-hidden {
         padding: 0;
+        display: none;
     }
 
     .repeater-header {

@@ -62,6 +62,8 @@ Check out the included sample application or the [Repeater DataGrid](https://git
 
 1.7.1 Replaced "Editable Grid" feature with [ClientSideRepeaterDataGridGetData script](#clientsiderepeaterdatagridgetdata-script)
 
+1.7.2 Bug fix visually-hidden css
+
 # Setup
 
 ## Application Setup
@@ -580,7 +582,7 @@ A *Repeater* control will contain the data (rows) in the DataGrid
    1. Drag a *Label* control into the *Repeater*
    2. Name the *Label* "*ColumnName*Label"
    3. In the *Label* *Text* property, select the corresponding *Repeater ListItem* property in the dropdown (see screenshot below)
-   4. Set the *Visible* property of the *Label* to "false" to hide the column
+   4. To hide the column, set the *Visible* property of the *Label* to "false" 
 
 ![](images/BindingControlsToRepeater.png)
 
