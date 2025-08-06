@@ -62,7 +62,7 @@ Check out the included sample application or the [Repeater DataGrid](https://git
 
 1.7.1 Replaced "Editable Grid" feature with [ClientSideRepeaterDataGridGetData script](#clientsiderepeaterdatagridgetdata-script)
 
-1.7.2 Bug fix visually-hidden css
+1.7.1.1 Bug fix visually-hidden css
 
 # Setup
 
