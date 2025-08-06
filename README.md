@@ -682,8 +682,8 @@ The CSS below is required for the correct functioning of the module. Variables e
 2. Drag the two CSS files from this repo [*stadium-client-side -repeater-datagrid-variables.css*](stadium-client-side -repeater-datagrid-variables.css) and [*stadium-client-side -repeater-datagrid.css*](stadium-client-side -repeater-datagrid.css) into that folder
 3. Paste the link tags below into the *head* property of your application
 ```html
-<link rel="stylesheet" href="{EmbeddedFiles}/CSS/stadium-client-side -repeater-datagrid.css">
-<link rel="stylesheet" href="{EmbeddedFiles}/CSS/stadium-client-side -repeater-datagrid-variables.css">
+<link rel="stylesheet" href="{EmbeddedFiles}/CSS/stadium-client-side-repeater-datagrid.css">
+<link rel="stylesheet" href="{EmbeddedFiles}/CSS/stadium-client-side-repeater-datagrid-variables.css">
 ``` 
 
 ### v6.12+
@@ -691,7 +691,7 @@ The CSS below is required for the correct functioning of the module. Variables e
 2. Drag the CSS files from this repo [*stadium-client-side -repeater-datagrid.css*](stadium-client-side -repeater-datagrid.css) into that folder
 3. Paste the link tag below into the *head* property of your application
 ```html
-<link rel="stylesheet" href="{EmbeddedFiles}/CSS/stadium-client-side -repeater-datagrid.css">
+<link rel="stylesheet" href="{EmbeddedFiles}/CSS/stadium-client-side-repeater-datagrid.css">
 ``` 
 
 ### Customising CSS
@@ -701,7 +701,7 @@ The CSS below is required for the correct functioning of the module. Variables e
 4. Add the [*stadium-client-side -repeater-datagrid-variables.css*](stadium-client-side -repeater-datagrid-variables.css) to the "CSS" folder in the EmbeddedFiles (overwrite)
 5. Paste the link tag below into the *head* property of your application (if you don't already have it there)
 ```html
-<link rel="stylesheet" href="{EmbeddedFiles}/CSS/stadium-client-side -repeater-datagrid-variables.css">
+<link rel="stylesheet" href="{EmbeddedFiles}/CSS/stadium-client-side-repeater-datagrid-variables.css">
 ``` 
 6. Add the file to the "CSS" inside of your Embedded Files in your application
 
