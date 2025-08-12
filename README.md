@@ -64,6 +64,8 @@ Check out the included sample application or the [Repeater DataGrid](https://git
 
 1.7.1.1 Bug fix visually-hidden css
 
+1.8 Added check for Repeater control
+
 # Setup
 
 ## Application Setup
@@ -87,7 +89,7 @@ In order to query the state of the *Repeater*, the second script called ["Client
 3. Drag a *JavaScript* action into the script
 4. Add the Javascript below unchanged into the JavaScript code property
 ```javascript
-/* Stadium Script v1.7.1 https://github.com/stadium-software/repeater-datagrid-client-side */
+/* Stadium Script v1.8 https://github.com/stadium-software/repeater-datagrid-client-side */
 let scope = this;
 let data = ~.Parameters.Input.Data || [];
 let cols = ~.Parameters.Input.Columns || [];
@@ -106,6 +108,10 @@ let totalPages = Math.ceil(totalRecords / pageSize);
 let containerClass = ~.Parameters.Input.ContainerClass;
 if (!containerClass) {
      console.error("The ContainerClass parameter is required");
+     return false;
+}
+if (!scope[`${repeaterName}`]) {
+     console.error("The Repeater was not found");
      return false;
 }
 let container = document.querySelectorAll("." + containerClass);
