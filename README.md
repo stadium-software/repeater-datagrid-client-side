@@ -66,6 +66,8 @@ Check out the included sample application or the [Repeater DataGrid](https://git
 
 1.8 Added check for Repeater control
 
+2.0 Included styles in the script & removed need to include "stadium-client-side-repeater-datagrid.css" in EmbeddedFiles for v6.12+
+
 # Setup
 
 ## Application Setup
@@ -89,8 +91,9 @@ In order to query the state of the *Repeater*, the second script called ["Client
 3. Drag a *JavaScript* action into the script
 4. Add the Javascript below unchanged into the JavaScript code property
 ```javascript
-/* Stadium Script v1.8 https://github.com/stadium-software/repeater-datagrid-client-side */
+/* Stadium Script v2.0 https://github.com/stadium-software/repeater-datagrid-client-side */
 let scope = this;
+loadCSS();
 let data = ~.Parameters.Input.Data || [];
 let cols = ~.Parameters.Input.Columns || [];
 let state = ~.Parameters.Input.State || {};
@@ -466,6 +469,169 @@ function attachStyling() {
     style.id = contID + "_stylesheet";
     style.appendChild(document.createTextNode(css));
 }
+function loadCSS() {
+    let moduleID = "stadium-client-side-repeater-datagrid-css";
+    if (!document.getElementById(moduleID)) {
+        let cssMain = document.createElement("style");
+        cssMain.id = moduleID;
+        cssMain.type = "text/css";
+        cssMain.textContent = `
+.stadium-client-side-dg-repeater {
+    margin-top: 1rem;
+    align-items: center;
+
+    .control-container.grid-container.grid-layout {
+        padding-right: 0;
+    }
+
+    .grid-item {
+        display: flex;
+        align-items: center;
+        border-bottom: 0.1rem solid var(--dg-border-color, var(--DATA-GRID-BORDER-COLOR, #ccc));
+        padding: var(--DATA-GRID-CELL-TOPBOTTOM-PADDING, 0.8rem) var(--DATA-GRID-CELL-RIGHTLEFT-PADDING, 0.8rem);
+        
+        .control-container {
+            font-size: var(--dg-item-font-size, var(--DATA-GRID-CELL-FONT-SIZE, 1.4rem));
+            margin-top: 0;
+            vertical-align: -webkit-baseline-middle;
+            padding-right: 1rem;
+            color: var(--DATA-GRID-CELL-FONT-COLOR, var(--BODY-FONT-COLOR, #333));
+        }
+    }
+
+    .grid-item:has(> .control-container.visually-hidden),
+    .grid-item:has(> .control-container[style='display: none;']) {
+        padding: 0;
+        margin: 0;
+    }
+    .control-container.visually-hidden {
+        padding: 0;
+        display: none;
+    }
+
+    .repeater-header {
+        border-top: 0.1rem solid var(--dg-border-color, var(--DATA-GRID-HEADER-CELL-BORDER-COLOR, #ccc));
+        border-bottom: 0.3rem solid var(--dg-border-color, var(--DATA-GRID-HEADER-CELL-BORDER-COLOR, #ccc));
+        padding: var(--dg-header-topbottom-padding, var(--DATA-GRID-HEADER-CELL-TOPBOTTOM-PADDING, 0.8rem)) var(--dg-header-rightleft-padding, var(--DATA-GRID-HEADER-CELL-RIGHTLEFT-PADDING, 0.8rem));
+        background-color: var(--DATA-GRID-HEADER-ROW-BACKGROUND-COLOR, #fff);
+
+        .btn.btn-link, 
+        span {
+            text-transform: var(--dg-header-text-transform, var(--DATA-GRID-HEADER-CELL-TEXT-TRANSFORM, uppercase));
+            font-weight: var(--dg-header-font-weight, var(--DATA-GRID-HEADER-CELL-FONT-WEIGHT, 600));
+            font-size: var(--dg-header-font-size, var(--DATA-GRID-HEADER-CELL-FONT-SIZE, 1.2rem));
+            color: var(--DATA-GRID-HEADER-CELL-FONT-COLOR, #1976d2);
+            line-height: var(--DATA-GRID-HEADER-CELL-LINE-HEIGHT, 1.428571429);
+            white-space: nowrap;
+        }
+        .btn.btn-link {
+            text-decoration: var(--dg-header-link-underline, var(--DATA-GRID-HEADER-CELL-TEXT-DECORATION, underline));
+
+            &:hover {
+                text-decoration: var(--dg-header-link-underline, var(--DATA-GRID-HEADER-CELL-HOVER-TEXT-DECORATION, underline));
+                color: var(--DATA-GRID-HEADER-CELL-HOVER-FONT-COLOR, #999)
+            }
+        }
+    }
+    .dg-alternate-row {
+        background-color: var(--dg-alternate-row-bg-color, var(--DATA-GRID-ODD-ROW-BACKGROUND-COLOR));
+    }
+
+    .dg-asc-sorting {
+        background-image: var(--dg-sorting-asc-icon, var(--DATA-GRID-SORT-ARROW-ASC-ICON));
+        background-repeat: no-repeat;
+        background-position: right center;
+        background-size: var(--dg-sorting-icon-size, var(--DATA-GRID-SORT-ARROW-ASCDESC-ICON-SIZE));
+    }
+
+    .dg-desc-sorting {
+        background-image: var(--dg-sorting-desc-icon, var(--DATA-GRID-SORT-ARROW-DESC-ICON));
+        background-repeat: no-repeat;
+        background-position: right center;
+        background-size: var(--dg-sorting-icon-size, var(--DATA-GRID-SORT-ARROW-ASCDESC-ICON-SIZE));
+    }
+
+    .paging-stack-layout {
+        display: flex;
+        align-items: center;
+        padding: 0.4rem 0;
+        border: 0.1rem solid var(--dg-border-color, var(--DATA-GRID-BORDER-COLOR));
+        /*width: calc(100% - var(--CONTROL-CONTAINER-RIGHT-PADDING, 1.6rem));*/
+
+        .control-container {
+            margin-top: 0;
+            vertical-align: -webkit-baseline-middle;
+            padding-right: 1.2rem;
+        }
+
+        .current-page {
+            font-style: italic;
+        }
+
+        .label-container {
+            margin-left: 0.4rem;
+            span {
+                font-size: 1.2rem;
+            }
+        }
+
+        .button-container {
+            padding-right: 0.2rem;
+        }
+
+        .button-container:first-child {
+            padding-left: 0.6rem;
+        }
+
+        .button-container.disabled .btn {
+            background-color: var(--dg-border-color, var(--DATA-GRID-BORDER-COLOR));
+            border-color: var(--dg-border-color, var(--DATA-GRID-BORDER-COLOR));
+        }
+
+        .btn {
+            width: auto;
+            padding: 0.2rem 0.6rem;
+            font-size: 1.2rem;
+            box-shadow: none;
+            color: var(--DATA-GRID-PAGINATION-ACTIVE-FONT-COLOR);
+            background-color: var(--DATA-GRID-PAGINATION-ACTIVE-BACKGROUND-COLOR);
+            border-color: var(--DATA-GRID-PAGINATION-ACTIVE-BORDER-COLOR);
+        }
+        
+        .text-box-container {
+            padding: 0 0.4rem 0 1.2rem;
+            
+        input[type='text'].form-control {
+                width: var(--dg-paging-specific-page-textbox-width, 6rem);
+                height: 2.2rem;
+                padding: 0 0.4rem;
+            }
+        }
+        .pagination {
+            padding: 0.2rem 0.6rem;
+            a {
+                user-select: none;
+                text-decoration: none;
+                color: var(--DATA-GRID-PAGINATION-FONT-COLOR);
+                background-color: var(--DATA-GRID-PAGINATION-BACKGROUND-COLOR);
+                border: 0.1rem solid var(--DATA-GRID-PAGINATION-BORDER-COLOR);
+            }
+            .active a,
+            a:hover {
+                color: var(--DATA-GRID-PAGINATION-ACTIVE-FONT-COLOR);
+                background-color: var(--DATA-GRID-PAGINATION-ACTIVE-BACKGROUND-COLOR);
+                border-color: var(--DATA-GRID-PAGINATION-ACTIVE-BORDER-COLOR);
+            }
+        }
+    }
+}
+html {
+    min-height: 100%;
+    font-size: 62.5%;
+}`;
+        document.head.appendChild(cssMain);
+    }   
+}
 window.rData = function() {
     return data;
 };
@@ -683,7 +849,7 @@ Create a script under the page called "Initialise" with the input Parameter:
 ![](images/Page.Load.png)
 
 ## CSS
-The CSS below is required for the correct functioning of the module. Variables exposed in the [*stadium-client-side -repeater-datagrid-variables.css*](stadium-client-side -repeater-datagrid-variables.css) file can be [customised](#customising-css).
+Variables exposed in the [*stadium-client-side -repeater-datagrid-variables.css*](stadium-client-side -repeater-datagrid-variables.css) file can be [customised](#customising-css) in any Stadium version.
 
 ### Before v6.12
 1. Create a folder called "CSS" inside of your Embedded Files in your application
@@ -695,12 +861,7 @@ The CSS below is required for the correct functioning of the module. Variables e
 ``` 
 
 ### v6.12+
-1. Create a folder called "CSS" inside of your Embedded Files in your application
-2. Drag the CSS files from this repo [*stadium-client-side -repeater-datagrid.css*](stadium-client-side -repeater-datagrid.css) into that folder
-3. Paste the link tag below into the *head* property of your application
-```html
-<link rel="stylesheet" href="{EmbeddedFiles}/CSS/stadium-client-side-repeater-datagrid.css">
-``` 
+Including a stylesheet in EmbeddedFiles is not necessary as the styles are included in the script
 
 ### Customising CSS
 1. Open the CSS file called [*stadium-client-side -repeater-datagrid-variables.css*](stadium-client-side -repeater-datagrid-variables.css) from this repo
