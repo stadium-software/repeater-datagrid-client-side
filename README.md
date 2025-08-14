@@ -849,11 +849,11 @@ Create a script under the page called "Initialise" with the input Parameter:
 ![](images/Page.Load.png)
 
 ## CSS
-Variables exposed in the [*stadium-client-side -repeater-datagrid-variables.css*](stadium-client-side -repeater-datagrid-variables.css) file can be [customised](#customising-css) in any Stadium version.
+Variables exposed in the [*stadium-client-side-repeater-datagrid-variables.css*](stadium-client-side-repeater-datagrid-variables.css) file can be [customised](#customising-css) in any Stadium version.
 
 ### Before v6.12
 1. Create a folder called "CSS" inside of your Embedded Files in your application
-2. Drag the two CSS files from this repo [*stadium-client-side -repeater-datagrid-variables.css*](stadium-client-side -repeater-datagrid-variables.css) and [*stadium-client-side -repeater-datagrid.css*](stadium-client-side -repeater-datagrid.css) into that folder
+2. Drag the two CSS files from this repo [*stadium-client-side-repeater-datagrid-variables.css*](stadium-client-side-repeater-datagrid-variables.css) and [*stadium-client-side-repeater-datagrid.css*](stadium-client-side-repeater-datagrid.css) into that folder
 3. Paste the link tags below into the *head* property of your application
 ```html
 <link rel="stylesheet" href="{EmbeddedFiles}/CSS/stadium-client-side-repeater-datagrid.css">
@@ -864,17 +864,17 @@ Variables exposed in the [*stadium-client-side -repeater-datagrid-variables.css*
 Including a stylesheet in EmbeddedFiles is not necessary as the styles are included in the script
 
 ### Customising CSS
-1. Open the CSS file called [*stadium-client-side -repeater-datagrid-variables.css*](stadium-client-side -repeater-datagrid-variables.css) from this repo
+1. Open the CSS file called [*stadium-client-side-repeater-datagrid-variables.css*](stadium-client-side-repeater-datagrid-variables.css) from this repo
 2. Adjust the variables in the *:root* element as you see fit
 3. Stadium 6.12+ users can comment out any variable they do **not** want to customise
-4. Add the [*stadium-client-side -repeater-datagrid-variables.css*](stadium-client-side -repeater-datagrid-variables.css) to the "CSS" folder in the EmbeddedFiles (overwrite)
+4. Add the [*stadium-client-side-repeater-datagrid-variables.css*](stadium-client-side-repeater-datagrid-variables.css) to the "CSS" folder in the EmbeddedFiles (overwrite)
 5. Paste the link tag below into the *head* property of your application (if you don't already have it there)
 ```html
 <link rel="stylesheet" href="{EmbeddedFiles}/CSS/stadium-client-side-repeater-datagrid-variables.css">
 ``` 
 6. Add the file to the "CSS" inside of your Embedded Files in your application
 
-**NOTE: Do not change any of the CSS in the 'stadium-client-side -repeater-datagrid.css' file**
+**NOTE: Do not change any of the CSS in the 'stadium-client-side-repeater-datagrid.css' file**
 
 ## Upgrading Stadium Repos
 Stadium Repos are not static. They change as additional features are added and bugs are fixed. Using the right method to work with Stadium Repos allows for upgrading them in a controlled manner. 
