@@ -18,8 +18,7 @@
       2. [Grid](#grid)
       3. [Repeater](#repeater)
       4. [Labels](#labels)
-   5. [Script Execution](#script-execution)
-      1. [Page.Load Event Handler](#pageload-event-handler)
+   5. [Page.Load Event Handler](#pageload-event-handler)
    6. [CSS](#css)
       1. [Before v6.12](#before-v612)
       2. [v6.12+](#v612)
@@ -803,10 +802,7 @@ A *Repeater* control will contain the data (rows) in the DataGrid
 
 ![](images/BindingControlsToRepeater.png)
 
-## Script Execution
-There are a number of possible ways to organise the various scripts in this module. This describes the default method, but the sample contains a wide number of others. 
-
-### Page.Load Event Handler
+## Page.Load Event Handler
 1. Execute the data source (a static list, query or a web service call)
 2. Drag a `State` type into the event handler
 3. Provide the load parameters for the DataGrid
