@@ -18,15 +18,13 @@
       2. [Grid](#grid)
       3. [Repeater](#repeater)
       4. [Labels](#labels)
-   5. [Page Scripts](#page-scripts)
-      1. ["Initialise" Page Script](#initialise-page-script)
-      2. ["Initialise" Setup](#initialise-setup)
-   6. [Page.Load Event Handler](#pageload-event-handler)
-   7. [CSS](#css)
+   5. [Script Execution](#script-execution)
+      1. [Page.Load Event Handler](#pageload-event-handler)
+   6. [CSS](#css)
       1. [Before v6.12](#before-v612)
       2. [v6.12+](#v612)
       3. [Customising CSS](#customising-css)
-   8. [Upgrading Stadium Repos](#upgrading-stadium-repos)
+   7. [Upgrading Stadium Repos](#upgrading-stadium-repos)
 
 ## Overview
 Using a *Repeater* control to display data allows for more flexibility, customisability and extensbility than a standard DataGrid. This module provides the functionality to sort and page through a DataSet assigned to a *Repeater*. 
@@ -805,20 +803,27 @@ A *Repeater* control will contain the data (rows) in the DataGrid
 
 ![](images/BindingControlsToRepeater.png)
 
-## Page Scripts
-The page script is not strictly necessary, but wrapping the functionality in a script makes it easier to reuse and extend.
+## Script Execution
+There are a number of possible ways to organise the various scripts in this module. This describes the default method, but the sample contains a wide number of others. 
 
-### "Initialise" Page Script
-Create a script under the page called "Initialise" with the input Parameter:
-1. State
+### Page.Load Event Handler
+1. Execute the data source (a static list, query or a web service call)
+2. Drag a `State` type into the event handler
+3. Provide the load parameters for the DataGrid
 
-### "Initialise" Setup
+![](images/StateTypeObjectProps.png)
 
-![](images/InitialiseScript.png)
+**Example**
 
-1. Drag the "State" type into the script
-2. Assign the "State" input parameter to the value property
-3. Fetch your data by dragging your query or WebService operation into the script
+```json
+{
+	"pageSize": "10",
+	"page": "1",
+	"sortDirection": "asc",
+	"sortField": "ID"
+}
+```
+
 4. Drag a *List* into the script and assign the type "Column" to the *List*
 5. Add each control / column in your *Repeater* to the *List* by providing the following
    1. name (required & unique): The column name (case sensitive)
@@ -872,28 +877,14 @@ Create a script under the page called "Initialise" with the input Parameter:
    3. ContainerClass: The unique class you assigned to the main container (e.g. client-side-datagrid)
    4. Data: Select the query *Result* or assign the JSON array to display from the API call
    5. State: The "State" *Type* created in step 1 of the "Initialise" script
-   6. PagingType (optional): Leave blank or enter 'classic' for the standard Stadium DataGrid paging format
+   6. PagingType (optional): Supported values are
+      1. 'default', the default for the Repeater DataGrid
+      2. 'classic', the standard Stadium DataGrid paging format
+      3. 'infinite', for infinite scrolling instead of paging
    7. Callback (optional): Leave blank or add the name of a page script that will be called after the assignment of the data
    8. EditableGrid (optional): Ignore this property for standard data display. It's a boolean that hides the paging controls and changes header *Links* controls into *Label* controls
 
 ![](images/ScriptInputParams.png)
-
-## Page.Load Event Handler
-
-1. Drag a "State" *Type* into the event handler
-2. Open the *Object Editor* in the dropdown of the "State" *Values* property
-3. Assign values to the properties
-   1. pageSize: The number of items you want to show in each DataGrid page
-   2. page: The initial page to show in the DataGrid
-   3. sortDirection: The direction you want to sort the data in (asc or desc)
-   4. sortField: The field by which the data will be sorted
-
-![](images/StateTypeObjectProps.png)
-
-4. Drag the "Initialise" script into the Page.Load event handler
-   1. Assign the "State" type to the "State" input parameter
-
-![](images/Page.Load.png)
 
 ## CSS
 Variables exposed in the [*stadium-client-side-repeater-datagrid-variables.css*](stadium-client-side-repeater-datagrid-variables.css) file can be [customised](#customising-css) in any Stadium version.
@@ -903,7 +894,6 @@ Variables exposed in the [*stadium-client-side-repeater-datagrid-variables.css*]
 2. Drag the two CSS files from this repo [*stadium-client-side-repeater-datagrid-variables.css*](stadium-client-side-repeater-datagrid-variables.css) and [*stadium-client-side-repeater-datagrid.css*](stadium-client-side-repeater-datagrid.css) into that folder
 3. Paste the link tags below into the *head* property of your application
 ```html
-<link rel="stylesheet" href="{EmbeddedFiles}/CSS/stadium-client-side-repeater-datagrid.css">
 <link rel="stylesheet" href="{EmbeddedFiles}/CSS/stadium-client-side-repeater-datagrid-variables.css">
 ``` 
 
