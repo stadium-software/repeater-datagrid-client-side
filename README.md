@@ -878,7 +878,6 @@ A *Repeater* control will contain the data (rows) in the DataGrid
       2. 'classic', the standard Stadium DataGrid paging format
       3. 'infinite', for infinite scrolling instead of paging
    7. Callback (optional): Leave blank or add the name of a page script that will be called after the assignment of the data
-   8. EditableGrid (optional): Ignore this property for standard data display. It's a boolean that hides the paging controls and changes header *Links* controls into *Label* controls
 
 ![](images/ScriptInputParams.png)
 
