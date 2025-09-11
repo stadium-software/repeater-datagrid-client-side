@@ -1,31 +1,32 @@
 # Client-Side Repeater DataGrid <!-- omit in toc -->
 
 ## Contents <!-- omit in toc -->
-- [Version](#version)
-- [Setup](#setup)
-  - [Database](#database)
-  - [Application Setup](#application-setup)
-  - [Global Scripts](#global-scripts)
-    - [ClientSideRepeaterDataGrid Script](#clientsiderepeaterdatagrid-script)
-    - [ClientSideRepeaterDataGridState Script](#clientsiderepeaterdatagridstate-script)
-  - [Types](#types)
-    - [Column](#column)
-    - [State](#state)
-    - [DataSet](#dataset)
-  - [Page](#page)
-    - [Container](#container)
-    - [Grid](#grid)
-    - [Repeater](#repeater)
-    - [Labels](#labels)
-  - [Page Scripts](#page-scripts)
-    - ["Initialise" Page Script](#initialise-page-script)
-    - ["Initialise" Setup](#initialise-setup)
-  - [Page.Load Event Handler](#pageload-event-handler)
-  - [CSS](#css)
-    - [Before v6.12](#before-v612)
-    - [v6.12+](#v612)
-    - [Customising CSS](#customising-css)
-  - [Upgrading Stadium Repos](#upgrading-stadium-repos)
+1. [Basic Setup Overview](#basic-setup-overview)
+2. [Version](#version)
+3. [Setup](#setup)
+   1. [Application Setup](#application-setup)
+   2. [Global Scripts](#global-scripts)
+      1. [ClientSideRepeaterDataGrid Script](#clientsiderepeaterdatagrid-script)
+      2. [ClientSideRepeaterDataGridState Script](#clientsiderepeaterdatagridstate-script)
+      3. [ClientSideRepeaterDataGridGetData Script](#clientsiderepeaterdatagridgetdata-script)
+   3. [Types](#types)
+      1. [Column](#column)
+      2. [State](#state)
+      3. [DataSet](#dataset)
+   4. [Page](#page)
+      1. [Container](#container)
+      2. [Grid](#grid)
+      3. [Repeater](#repeater)
+      4. [Labels](#labels)
+   5. [Page Scripts](#page-scripts)
+      1. ["Initialise" Page Script](#initialise-page-script)
+      2. ["Initialise" Setup](#initialise-setup)
+   6. [Page.Load Event Handler](#pageload-event-handler)
+   7. [CSS](#css)
+      1. [Before v6.12](#before-v612)
+      2. [v6.12+](#v612)
+      3. [Customising CSS](#customising-css)
+   8. [Upgrading Stadium Repos](#upgrading-stadium-repos)
 
 ## Overview
 Using a *Repeater* control to display data allows for more flexibility, customisability and extensbility than a standard DataGrid. This module provides the functionality to sort and page through a DataSet assigned to a *Repeater*. 
@@ -68,6 +69,8 @@ Check out the included sample application or the [Repeater DataGrid](https://git
 
 2.0 Included styles in the script & removed need to include "stadium-client-side-repeater-datagrid.css" in EmbeddedFiles for v6.12+
 
+2.1 Added 'Infinite' scroll as a paging option
+
 # Setup
 
 ## Application Setup
@@ -91,7 +94,7 @@ In order to query the state of the *Repeater*, the second script called ["Client
 3. Drag a *JavaScript* action into the script
 4. Add the Javascript below unchanged into the JavaScript code property
 ```javascript
-/* Stadium Script v2.0 https://github.com/stadium-software/repeater-datagrid-client-side */
+/* Stadium Script v2.1 https://github.com/stadium-software/repeater-datagrid-client-side */
 let scope = this;
 loadCSS();
 let data = ~.Parameters.Input.Data || [];
@@ -102,6 +105,7 @@ let pageSize = parseInt(state.pageSize);
 let sortField = state.sortField || cols[0].name;
 let sortDirection = state.sortDirection || "";
 let pagingType = ~.Parameters.Input.PagingType || "default";
+pagingType = pagingType.toLowerCase();
 let page = parseInt(state.page) || 1;
 let pagers = 10;
 let totalRecords = data.length;
@@ -117,6 +121,7 @@ if (!scope[`${repeaterName}`]) {
      console.error("The Repeater was not found");
      return false;
 }
+scope[`${repeaterName}List`] = [];
 let container = document.querySelectorAll("." + containerClass);
 if (container.length == 0) {
     console.error("The class '" + containerClass + "' is not assigned to any container");
@@ -134,8 +139,22 @@ if (grid.length == 0) {
 } else if (grid.length > 1) {
     console.error("The container '" + containerClass + "' must contain only one Grid control");
     return false;
-} else { 
-    grid = grid[0];
+}
+grid = grid[0];
+let infinitePaging = false;
+let infiniteScrollEnd = false;
+if (pagingType == "infinite") {
+    infinitePaging = true;
+}
+if (infinitePaging) {
+    var infiniteObserver = new IntersectionObserver(entries => {
+        if (entries[0].isIntersecting) {
+            page++;
+            setRepeaterData(page, data);
+        }
+    }, {
+            rootMargin: '0px 0px 100px 0px'
+    });
 }
 let contID = container.id;
 let cellsPerRow = cols.length;
@@ -171,13 +190,31 @@ for (let i = 0; i < cells.length; i++) {
 }
 /*----------------------------------------------------------------------------------------------*/
 async function setRepeaterData(p, d) {
-    let first = (p - 1) * pageSize;
-    let pageData = d.slice(first, first + pageSize);
-    attachData(pageData);
+    let pageData = scope[`${repeaterName}List`];
+    let pageNo = (p - 1) * pageSize;
+    let pageSlice = d.slice(pageNo, pageNo + pageSize);
+    if (infinitePaging) {
+        infiniteObserver.observe(container.querySelector(".paging"));
+        if (!infiniteScrollEnd && pageSlice.length > 0) {
+            pageData.push(...pageSlice);
+        } else if (!infiniteScrollEnd && pageSlice.length == 0) {
+            infiniteScrollEnd = true;
+        } else {
+            pageData = d;
+        }
+    } else {
+        pageData = pageSlice;
+    }
+    await attachData(pageData);
+    if (infinitePaging && getDistanceFromBottom(grid) > 0) {
+        page = page + 1;
+        setRepeaterData(page, data);
+    }
     writeCookie();
     if (callback) await scriptCaller(callback, d);
 }
 function attachData(value) {
+    scope[`${repeaterName}List`] = [];
     scope[`${repeaterName}List`] = value;
 }
 function writeCookie() {
@@ -230,11 +267,11 @@ function addHeaders(c) {
 function addPaging() { 
     if (container.querySelector(".paging")) container.querySelector(".paging").remove();
     let pagingContainer = createTag("div", ["layout-control", "container-layout", "paging", "inline-block-element", "data-grid-container"], []);
-    if (pagingType.toLowerCase() == "classic") {
+    if (pagingType == "classic") {
         let pagingButtonsContainer = createTag("ul", ["pagination"], []);
         let pagingButtons = addClassicPagingButtons(pagingButtonsContainer, page);
         pagingContainer.appendChild(pagingButtons);
-    } else {
+    } else if (pagingType == "default") {
         let prevButtonContainer = createTag("div", ["control-container", "button-container", "previous-button"], []);
         let prevButton = createTag("div", ["btn", "btn-lg", "btn-default"], [], "<<");
         let nextButtonContainer = createTag("div", ["control-container", "button-container", "next-button"], []);
@@ -422,6 +459,11 @@ function sort(field, direction) {
             data.sort((a, b) => Number(a[sortField]) - Number(b[sortField]));
         }
     }
+    if (infinitePaging) {
+        page = 1;
+        infiniteScrollEnd = false;
+        scope[`${repeaterName}List`] = [];
+    }
     setRepeaterData(page, data);
 }
 function createTag(type, arrClasses, arrAttributes, text) {
@@ -445,6 +487,11 @@ function getPageLabel() {
         pgLabel = "Page " + page.toLocaleString() + " of " + totalPages.toLocaleString();
     }
     return pgLabel;
+}
+function getDistanceFromBottom(element) {
+  const rect = element.getBoundingClientRect();
+  const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+  return viewportHeight - rect.bottom;
 }
 function attachStyling() {
     let selector = [];
