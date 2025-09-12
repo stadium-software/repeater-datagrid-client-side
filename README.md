@@ -808,6 +808,9 @@ A *Repeater* control will contain the data (rows) in the DataGrid
 # Script Usage
 
 ## ClientSideRepeaterDataGrid
+
+![](images/Page.LoadEventHandler.png)
+
 1. Open the Page.Load Event Handler
 2. Execute the data source (a static list, query or a web service call)
 3. Drag a `State` type into the event handler
@@ -889,6 +892,8 @@ A *Repeater* control will contain the data (rows) in the DataGrid
 
 ## ClientSideRepeaterDataGridState 
 
+![](images/SaveState.png)
+
 Reinstating a DataGrid to a previous setting can be achieved by saving the state of that DataGrid when users affect changes, such as sorting, paging or changing the page size. The state of a DataGrid can be retreived by calling the 'ClientSideRepeaterDataGridState' script. It returns an object containing the state of the DataGrid. This can then be used to reinstate that state later. 
 
 1. Drag the 'ClientSideRepeaterDataGridState' script to an event handler or script and provide the input parameters
@@ -900,6 +905,8 @@ Reinstating a DataGrid to a previous setting can be achieved by saving the state
 3. Save the state in an application `Session` variable or use the [Application Variables](https://github.com/stadium-software/utils-body-variables) or [Page Variables](https://github.com/stadium-software/utils-page-variables) repos to store the value
 
 ## ClientSideRepeaterDataGridGetData
+
+![](images/FetchdataSet.png)
 
 The `Repeater.List` property contains only the data shown in the displayed DataGrid page. To retreive the entire dataset from the DataGrid, it is necessary to use the 'ClientSideRepeaterDataGridGetData' script. 
 
