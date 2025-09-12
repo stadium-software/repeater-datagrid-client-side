@@ -913,7 +913,7 @@ The `Repeater.List` property contains only the data shown in the displayed DataG
 1. Drag the 'ClientSideRepeaterDataGridGetData' script to an event handler or script
 2. Drag a `List` action to the script 
 3. Assign the 'DataSet' type to the list
-4. Assign the `data` property of the returned object to tyhe `List` (ClientSideRepeaterDataGridGetData.data)
+4. Assign the `data` property of the returned object to the `List` (ClientSideRepeaterDataGridGetData.data)
 
 ![](images/DataGridDataAssignment.png)
 
