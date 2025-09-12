@@ -18,15 +18,15 @@
       2. [Grid](#grid)
       3. [Repeater](#repeater)
       4. [Labels](#labels)
-   5. [Script Usage](#script-usage)
-      1. [Generate DataGrid](#generate-datagrid)
-      2. [ClientSideRepeaterDataGridState](#clientsiderepeaterdatagridstate)
-      3. [ClientSideRepeaterDataGridGetData](#clientsiderepeaterdatagridgetdata)
-   6. [CSS](#css)
+4. [Script Usage](#script-usage)
+   1. [Generate DataGrid](#generate-datagrid)
+   2. [ClientSideRepeaterDataGridState](#clientsiderepeaterdatagridstate)
+   3. [ClientSideRepeaterDataGridGetData](#clientsiderepeaterdatagridgetdata)
+5. [CSS](#css)
       1. [Before v6.12](#before-v612)
       2. [v6.12+](#v612)
       3. [Customising CSS](#customising-css)
-   7. [Upgrading Stadium Repos](#upgrading-stadium-repos)
+   1. [Upgrading Stadium Repos](#upgrading-stadium-repos)
 
 ## Overview
 Using a *Repeater* control to display data allows for more flexibility, customisability and extensbility than a standard DataGrid. This module provides the functionality to sort and page through a DataSet assigned to a *Repeater*. 
@@ -805,9 +805,9 @@ A *Repeater* control will contain the data (rows) in the DataGrid
 
 ![](images/BindingControlsToRepeater.png)
 
-## Script Usage
+# Script Usage
 
-### Generate DataGrid
+## Generate DataGrid
 1. Open the Page.Load Event Handler
 2. Execute the data source (a static list, query or a web service call)
 3. Drag a `State` type into the event handler
@@ -887,7 +887,7 @@ A *Repeater* control will contain the data (rows) in the DataGrid
 
 ![](images/ScriptInputParams.png)
 
-### ClientSideRepeaterDataGridState 
+## ClientSideRepeaterDataGridState 
 
 Reinstating a DataGrid to a previous setting can be achieved by saving the state of that DataGrid when users affect changes, such as sorting, paging or changing the page size. The state of a DataGrid can be retreived by calling the 'ClientSideRepeaterDataGridState' script. It returns an object containing the state of the DataGrid. This can then be used to reinstate that state later. 
 
@@ -899,7 +899,7 @@ Reinstating a DataGrid to a previous setting can be achieved by saving the state
 
 3. Save the state in an application `Session` variable or use the [Application Variables](https://github.com/stadium-software/utils-body-variables) or [Page Variables](https://github.com/stadium-software/utils-page-variables) repos to store the value
 
-### ClientSideRepeaterDataGridGetData
+## ClientSideRepeaterDataGridGetData
 
 The `Repeater.List` property contains only the data shown in the displayed DataGrid page. To retreive the entire dataset from the DataGrid, it is necessary to use the 'ClientSideRepeaterDataGridGetData' script. 
 
@@ -912,7 +912,7 @@ The `Repeater.List` property contains only the data shown in the displayed DataG
 
 Note: This function currently only supports the use of one DataGrid per page
 
-## CSS
+# CSS
 Variables exposed in the [*stadium-client-side-repeater-datagrid-variables.css*](stadium-client-side-repeater-datagrid-variables.css) file can be [customised](#customising-css) in any Stadium version.
 
 ### Before v6.12
