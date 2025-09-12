@@ -19,7 +19,7 @@
       3. [Repeater](#repeater)
       4. [Labels](#labels)
 4. [Script Usage](#script-usage)
-   1. [Generate DataGrid](#generate-datagrid)
+   1. [ClientSideRepeaterDataGrid](#clientsiderepeaterdatagrid)
    2. [ClientSideRepeaterDataGridState](#clientsiderepeaterdatagridstate)
    3. [ClientSideRepeaterDataGridGetData](#clientsiderepeaterdatagridgetdata)
 5. [CSS](#css)
@@ -807,7 +807,7 @@ A *Repeater* control will contain the data (rows) in the DataGrid
 
 # Script Usage
 
-## Generate DataGrid
+## ClientSideRepeaterDataGrid
 1. Open the Page.Load Event Handler
 2. Execute the data source (a static list, query or a web service call)
 3. Drag a `State` type into the event handler
