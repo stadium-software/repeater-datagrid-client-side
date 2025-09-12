@@ -18,7 +18,9 @@
       2. [Grid](#grid)
       3. [Repeater](#repeater)
       4. [Labels](#labels)
-   5. [Page.Load Event Handler](#pageload-event-handler)
+   5. [Script Usage](#script-usage)
+      1. [Generate DataGrid](#generate-datagrid)
+      2. [ClientSideRepeaterDataGridState](#clientsiderepeaterdatagridstate)
    6. [CSS](#css)
       1. [Before v6.12](#before-v612)
       2. [v6.12+](#v612)
@@ -802,10 +804,13 @@ A *Repeater* control will contain the data (rows) in the DataGrid
 
 ![](images/BindingControlsToRepeater.png)
 
-## Page.Load Event Handler
-1. Execute the data source (a static list, query or a web service call)
-2. Drag a `State` type into the event handler
-3. Provide the load parameters for the DataGrid
+## Script Usage
+
+### Generate DataGrid
+1. Open the Page.Load Event Handler
+2. Execute the data source (a static list, query or a web service call)
+3. Drag a `State` type into the event handler
+4. Provide the load parameters for the DataGrid
 
 ![](images/StateTypeObjectProps.png)
 
@@ -880,6 +885,10 @@ A *Repeater* control will contain the data (rows) in the DataGrid
    7. Callback (optional): Leave blank or add the name of a page script that will be called after the assignment of the data
 
 ![](images/ScriptInputParams.png)
+
+### ClientSideRepeaterDataGridState
+
+
 
 ## CSS
 Variables exposed in the [*stadium-client-side-repeater-datagrid-variables.css*](stadium-client-side-repeater-datagrid-variables.css) file can be [customised](#customising-css) in any Stadium version.
