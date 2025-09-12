@@ -21,6 +21,7 @@
    5. [Script Usage](#script-usage)
       1. [Generate DataGrid](#generate-datagrid)
       2. [ClientSideRepeaterDataGridState](#clientsiderepeaterdatagridstate)
+      3. [ClientSideRepeaterDataGridGetData](#clientsiderepeaterdatagridgetdata)
    6. [CSS](#css)
       1. [Before v6.12](#before-v612)
       2. [v6.12+](#v612)
@@ -886,9 +887,30 @@ A *Repeater* control will contain the data (rows) in the DataGrid
 
 ![](images/ScriptInputParams.png)
 
-### ClientSideRepeaterDataGridState
+### ClientSideRepeaterDataGridState 
 
+Reinstating a DataGrid to a previous setting can be achieved by saving the state of that DataGrid when users affect changes, such as sorting, paging or changing the page size. The state of a DataGrid can be retreived by calling the 'ClientSideRepeaterDataGridState' script. It returns an object containing the state of the DataGrid. This can then be used to reinstate that state later. 
 
+1. Drag the 'ClientSideRepeaterDataGridState' script to an event handler or script and provide the input parameters
+   1. ContainerClass: The classname of the container
+2. Drag a 'State' type to the script and assign the return value to the type `Value` property
+
+![](images/StateAssignmentToType.png)
+
+3. Save the state in an application `Session` variable or use the [Application Variables](https://github.com/stadium-software/utils-body-variables) or [Page Variables](https://github.com/stadium-software/utils-page-variables) repos to store the value
+
+### ClientSideRepeaterDataGridGetData
+
+The `Repeater.List` property contains only the data shown in the displayed DataGrid page. To retreive the entire dataset from the DataGrid, it is necessary to use the 'ClientSideRepeaterDataGridGetData' script. 
+
+1. Drag the 'ClientSideRepeaterDataGridGetData' script to an event handler or script
+2. Drag a `List` action to the script 
+3. Assign the 'DataSet' type to the list
+4. Assign the `data` property of the returned object to tyhe `List` (ClientSideRepeaterDataGridGetData.data)
+
+![](images/DataGridDataAssignment.png)
+
+Note: This function currently only supports the use of one DataGrid per page
 
 ## CSS
 Variables exposed in the [*stadium-client-side-repeater-datagrid-variables.css*](stadium-client-side-repeater-datagrid-variables.css) file can be [customised](#customising-css) in any Stadium version.
