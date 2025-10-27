@@ -23,10 +23,8 @@
    2. [ClientSideRepeaterDataGridState](#clientsiderepeaterdatagridstate)
    3. [ClientSideRepeaterDataGridGetData](#clientsiderepeaterdatagridgetdata)
 5. [CSS](#css)
-      1. [Before v6.12](#before-v612)
-      2. [v6.12+](#v612)
-      3. [Customising CSS](#customising-css)
-   1. [Upgrading Stadium Repos](#upgrading-stadium-repos)
+6. [Optional Features](#optional-features)
+7. [Upgrading Stadium Repos](#upgrading-stadium-repos)
 
 ## Overview
 Using a *Repeater* control to display data allows for more flexibility, customisability and extensbility than a standard DataGrid. This module provides the functionality to sort and page through a DataSet assigned to a *Repeater*. 
@@ -919,20 +917,8 @@ The `Repeater.List` property contains only the data shown in the displayed DataG
 Note: This function currently only supports the use of one DataGrid per page
 
 # CSS
-Variables exposed in the [*stadium-client-side-repeater-datagrid-variables.css*](stadium-client-side-repeater-datagrid-variables.css) file can be [customised](#customising-css) in any Stadium version.
+Variables exposed in the [*stadium-client-side-repeater-datagrid-variables.css*](stadium-client-side-repeater-datagrid-variables.css) file can be customised.
 
-### Before v6.12
-1. Create a folder called "CSS" inside of your Embedded Files in your application
-2. Drag the two CSS files from this repo [*stadium-client-side-repeater-datagrid-variables.css*](stadium-client-side-repeater-datagrid-variables.css) and [*stadium-client-side-repeater-datagrid.css*](stadium-client-side-repeater-datagrid.css) into that folder
-3. Paste the link tags below into the *head* property of your application
-```html
-<link rel="stylesheet" href="{EmbeddedFiles}/CSS/stadium-client-side-repeater-datagrid-variables.css">
-``` 
-
-### v6.12+
-Including a stylesheet in EmbeddedFiles is not necessary as the styles are included in the script
-
-### Customising CSS
 1. Open the CSS file called [*stadium-client-side-repeater-datagrid-variables.css*](stadium-client-side-repeater-datagrid-variables.css) from this repo
 2. Adjust the variables in the *:root* element as you see fit
 3. Stadium 6.12+ users can comment out any variable they do **not** want to customise
@@ -943,9 +929,28 @@ Including a stylesheet in EmbeddedFiles is not necessary as the styles are inclu
 ``` 
 6. Add the file to the "CSS" inside of your Embedded Files in your application
 
-**NOTE: Do not change any of the CSS in the 'stadium-client-side-repeater-datagrid.css' file**
+# Optional Features
+Review the sample application in this repo to familiarise yourself with the following optional features available in this DataGrid implementation.
 
-## Upgrading Stadium Repos
+1. CallBack script - performing actions after the user has sorted or paged the DataGrid
+2. Classic paging - the standard Stadium DataGrid paging format
+3. Column editing - using input controls in the Repeater to edit data directly in the DataGrid
+4. Conditional cell formatting - using a Repeater.Item.Load event to attach classes to Repeater cells based on data values
+5. Custom filters - creating custom filter controls to filter the Repeater data
+6. Custom load params - loading a page with custom load parameters (e.g. page size, sort field and sort direction)
+7. Data export - exporting the entire Repeater dataset to CSV format
+8. Editable grid - making the Repeater editable with input controls in the Repeater and saving the changes back to the data source
+9. Hidden columns - hiding columns in the Repeater
+10. Icon columns - using icons in Repeater columns
+11. Link columns - showing links in Repeater columns
+12. Multi-column editing - editing multiple columns in the Repeater
+13. Page loader - showing a page loader while the Repeater is loading data
+14. Row menu - adding a context menu to each row in the Repeater
+15. Selectable rows - displaying a checkbox column to select rows in the Repeater
+16. Settable page size - allowing users to select the number of rows shown
+17. Simple tooltips - adding tooltips to Repeater cells
+
+# Upgrading Stadium Repos
 Stadium Repos are not static. They change as additional features are added and bugs are fixed. Using the right method to work with Stadium Repos allows for upgrading them in a controlled manner. 
 
 How to use and update application repos is described here: [Working with Stadium Repos](https://github.com/stadium-software/samples-upgrading)
