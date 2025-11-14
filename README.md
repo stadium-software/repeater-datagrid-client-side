@@ -11,7 +11,9 @@
       3. [ClientSideRepeaterDataGridGetData Script](#clientsiderepeaterdatagridgetdata-script)
    3. [Types](#types)
       1. [Column](#column)
+         1. [Type Import](#type-import)
       2. [State](#state)
+         1. [Type Import](#type-import-1)
       3. [DataSet](#dataset)
    4. [Page](#page)
       1. [Container](#container)
@@ -745,6 +747,21 @@ This type is used to define the columns in the DataGrid
 
 ![](images/ColumnType.png)
 
+#### Type Import
+1. Right-click on the `Types` node in the `Application Explorer`
+2. In the `Import Type` popup
+    1. Add "Column" into the `Name` input field
+    2. Copy & paste the JSON below into the main input area
+
+```json
+{
+	"name": "",
+	"header": "",
+    "visible": "",
+    "sortable": ""
+}
+```
+
 ### State
 The state of the DataGrid is stored in this type
 1. pageSize (any)
@@ -753,6 +770,21 @@ The state of the DataGrid is stored in this type
 4. sortField (any)
 
 ![](images/Statetype.png)
+
+#### Type Import
+1. Right-click on the `Types` node in the `Application Explorer`
+2. In the `Import Type` popup
+    1. Add "State" into the `Name` input field
+    2. Copy & paste the JSON below into the main input area
+
+```json
+{
+	"pageSize": "",
+	"page": "",
+    "sortDirection": "",
+    "sortField": ""
+}
+```
 
 ### DataSet
 This type will be used in the *Repeater* *ListItem Type* property. The "DataSet" type must contain properties for all columns the DataGrid you create (visible and hidden). 
