@@ -3,6 +3,7 @@
 ## Contents <!-- omit in toc -->
 1. [Basic Setup Overview](#basic-setup-overview)
 2. [Version](#version)
+   1. [Change Log](#change-log)
 3. [Setup](#setup)
    1. [Application Setup](#application-setup)
    2. [Global Scripts](#global-scripts)
@@ -46,6 +47,11 @@ https://github.com/user-attachments/assets/c6d7890c-16b5-456d-a71e-f92b6a701da3
 Check out the included sample application or the [Repeater DataGrid](https://github.com/stadium-software/repeater-datagrid) repo to find out how to add some more advanced features
 
 # Version
+
+2.1
+
+## Change Log
+
 1.1 Added an optional callback parameter for a page script that can be called after the assignment of the data
 
 1.2 Added "Classic" paging option; added "No data" display for empty datasets
@@ -69,8 +75,6 @@ Check out the included sample application or the [Repeater DataGrid](https://git
 2.0 Included styles in the script & removed need to include "stadium-client-side-repeater-datagrid.css" in EmbeddedFiles for v6.12+
 
 2.1 Added 'Infinite' scroll as a paging option
-
-2.1.1 Temporary fix for layout problem when using this module in an application that alos has the ChildGrids module
 
 # Setup
 
@@ -677,8 +681,7 @@ html {
     min-height: 100%;
     font-size: 62.5%;
 }`;
-        //document.head.appendChild(cssMain);
-        document.head.insertBefore(cssMain, document.head.firstChild);
+        document.head.appendChild(cssMain);
     }   
 }
 window.rData = function() {
