@@ -70,6 +70,8 @@ Check out the included sample application or the [Repeater DataGrid](https://git
 
 2.1 Added 'Infinite' scroll as a paging option
 
+2.1.1 Temporary fix for layout problem when using this module in an application that alos has the ChildGrids module
+
 # Setup
 
 ## Application Setup
@@ -93,7 +95,7 @@ In order to query the state of the *Repeater*, the second script called ["Client
 3. Drag a *JavaScript* action into the script
 4. Add the Javascript below unchanged into the JavaScript code property
 ```javascript
-/* Stadium Script v2.1 https://github.com/stadium-software/repeater-datagrid-client-side */
+/* Stadium Script v2.1.1 https://github.com/stadium-software/repeater-datagrid-client-side */
 let scope = this;
 loadCSS();
 let data = ~.Parameters.Input.Data || [];
@@ -675,7 +677,8 @@ html {
     min-height: 100%;
     font-size: 62.5%;
 }`;
-        document.head.appendChild(cssMain);
+        //document.head.appendChild(cssMain);
+        document.head.insertBefore(cssMain, document.head.firstChild);
     }   
 }
 window.rData = function() {
